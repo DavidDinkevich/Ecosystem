@@ -2,7 +2,7 @@ package main;
 
 public class Sound extends GraphicsEllipse {
 	
-	public static final float EXPANSION_SPEED = 5f;
+	public static final float EXPANSION_SPEED = 10f;
 	
 	private int sourceID;	
 	private int lifetime;
