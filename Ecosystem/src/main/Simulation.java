@@ -174,7 +174,7 @@ public class Simulation extends WindowAdapter {
 		// Sound cooldown
 		dna.setGene(5, new Gene(Utils.random(60 * 3, 60 * 8), 60 * 1));
 		// Sound lifetime
-		dna.setGene(6, new Gene(Utils.random(60 * 1, 60 * 5), 60 * 1));
+		dna.setGene(6, new Gene(Utils.random(20, 110), 10));
 		// Exploration range
 		dna.setGene(7, new Gene(Math.abs(Utils.random(60f, 220f)), 30f));
 		
