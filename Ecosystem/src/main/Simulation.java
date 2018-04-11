@@ -140,6 +140,7 @@ public class Simulation extends WindowAdapter {
 			);
 			System.out.println("Bite Size: " + currAgent.getBiteSize());
 			System.out.println("Vision Range: " + currAgent.getDna().getGene(3).getValue());
+			System.out.println("Exploration Range: " + currAgent.getDna().getGene(7).getValue());
 			final int soundCooldown = (int)currAgent.getDna().getGene(5).getValue();
 			System.out.println("Sound Cooldown: " + soundCooldown + " (" + soundCooldown/60 + ")");
 			final int soundLifetime = (int)currAgent.getDna().getGene(6).getValue();
@@ -160,10 +161,10 @@ public class Simulation extends WindowAdapter {
 		DNA dna = new DNA(Agent.NUM_GENES);
 		
 		// Size
-		final float unscaledSize = Utils.random(10f, 60f);
-		dna.setGene(0, new Gene(unscaledSize, 8f));
+		final float size = Utils.random(10f, 60f);
+		dna.setGene(0, new Gene(size, 8f));
 		// Max Hunger
-		dna.setGene(1, new Gene(Utils.constrain(unscaledSize/20f, 1f, 2.5f), 0.4f));
+		dna.setGene(1, new Gene(Utils.constrain(size/20f, 1f, 2.5f), 0.4f));
 		// Min food for mating
 		dna.setGene(2, new Gene(0.7f, 0.1f));
 		// Vision range
@@ -174,6 +175,8 @@ public class Simulation extends WindowAdapter {
 		dna.setGene(5, new Gene(Utils.random(60 * 3, 60 * 8), 60 * 1));
 		// Sound lifetime
 		dna.setGene(6, new Gene(Utils.random(60 * 1, 60 * 5), 60 * 1));
+		// Exploration range
+		dna.setGene(7, new Gene(Math.abs(Utils.random(60f, 220f)), 30f));
 		
 		Agent agent = new Agent(this, dna);
 		Vec2 loc = canvas.randomLoc();
@@ -259,6 +262,7 @@ public class Simulation extends WindowAdapter {
 		}
 		else if (key == 'k') {
 			agents.clear();
+			currAgent = null;
 		}
 	}
 	
