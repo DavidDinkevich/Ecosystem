@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Agent extends GraphicsEllipse {
 	
-	public static int NUM_GENES = 7;
+	public static int NUM_GENES = 8;
 		
 	private Simulation sim;
 	private DNA dna;
@@ -24,7 +24,8 @@ public class Agent extends GraphicsEllipse {
 	private float maxSpeed;
 	private float steeringPower;
 	private float visionRange;
-	public Vec2.Mutable currDest;
+	private Vec2.Mutable currDest;
+	private float explorationDist;
 	
 	// STATES
 	private STATES state;
@@ -44,6 +45,9 @@ public class Agent extends GraphicsEllipse {
 	private int soundLifetime;
 	private int lastSoundTime;
 	
+	private int lifetime = 60 * 80;
+	private int initLifetime = 60 * 80;
+	
 	public Agent(Simulation sim, DNA dna) {
 		this.sim = sim;
 		this.dna = dna;
@@ -60,10 +64,10 @@ public class Agent extends GraphicsEllipse {
 		memoryStrength = (int)dna.getGene(4).getValue();
 		soundCooldown = (int)dna.getGene(5).getValue();
 		soundLifetime = (int)dna.getGene(6).getValue();
+		explorationDist = dna.getGene(7).getValue();
 		
 		hunger = maxHunger;
-//		hungerDecay = 0.0005f;
-		hungerDecay = 0f;
+		hungerDecay = 0.0005f;
 		
 		state = STATES.MATE;
 		
@@ -104,8 +108,10 @@ public class Agent extends GraphicsEllipse {
 	
 	@Override
 	public void update(Canvas c) {
+		--lifetime;
 		hunger -= hungerDecay;
 		color.setA(Utils.map(hunger, 0f, maxHunger, 0f, 255f));
+//		color.setA(Utils.map(lifetime, 0, initLifetime, 0f, 255f));
 		
 		veloc.add(accel);
 		loc.add(veloc);
@@ -309,8 +315,7 @@ public class Agent extends GraphicsEllipse {
 		// If we've arrived at dest
 		if (Vec2.dist(loc, currDest) <= size.getWidth()/2f) {
 			// Random vector pointing away from our curr loc
-			final float dist = size.getWidth() * 7f;
-			currDest.set(Vec2.add(Vec2.mult(Vec2.random2D(), dist), loc));
+			currDest.set(Vec2.add(Vec2.mult(Vec2.random2D(), explorationDist), loc));
 		}
 	}
 	
@@ -407,7 +412,7 @@ public class Agent extends GraphicsEllipse {
 	}
 	
 	public boolean isDead() {
-		return hunger <= 0f;
+		return hunger <= 0f || lifetime <= 0;
 	}
 	
 	public Simulation getSimulationManager() {
