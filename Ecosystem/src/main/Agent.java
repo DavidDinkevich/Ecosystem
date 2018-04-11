@@ -163,7 +163,6 @@ public class Agent extends GraphicsEllipse {
 	}
 	
 	private Vec2 separate(List<Agent> others) {
-//		final float desiredSep = size.getWidth() * 1.2f;
 		// The average vector pointing away from all other agents within
 		// desiredSep range
 		Vec2.Mutable sum = new Vec2.Mutable();
@@ -275,7 +274,7 @@ public class Agent extends GraphicsEllipse {
 		// No agents eligible for mating were found. Let's listen for mating sounds, 
 		// and then emit our own mating sound.
 		
-		float shortestDist = 1000000f; // Easily beateable
+		float shortestDist = 1000000f; // Easily beatable
 		Sound closestSound = null;
 		
 		for (Sound sound : sim.getSounds()) {
