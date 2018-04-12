@@ -45,8 +45,8 @@ public class Agent extends GraphicsEllipse {
 	private int soundLifetime;
 	private int lastSoundTime;
 	
-	private int lifetime = 60 * 80;
-	private int initLifetime = 60 * 80;
+	private int initLifetime;
+	private int lifetime;
 	
 	public Agent(Simulation sim, DNA dna) {
 		this.sim = sim;
@@ -74,6 +74,9 @@ public class Agent extends GraphicsEllipse {
 		memFood = new LinkedList<>();
 		
 		currDest = new Vec2.Mutable();
+		
+		initLifetime = 60 * 100;
+		lifetime = initLifetime;
 		
 		refreshDestIfNecessary(); // Initial loc
 	}
@@ -445,6 +448,14 @@ public class Agent extends GraphicsEllipse {
 	
 	public int getNumChildren() {
 		return numChildren;
+	}
+	
+	public int getLifetime() {
+		return lifetime;
+	}
+	
+	public int getInitialLifetime() {
+		return initLifetime;
 	}
 }
 
