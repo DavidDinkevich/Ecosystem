@@ -3,6 +3,7 @@ package main;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -38,7 +39,9 @@ public class MainWindow extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		 new MainWindow();
+		SwingUtilities.invokeLater(() -> {
+			new MainWindow();			
+		});
 	}
 
 	public Canvas getCanvas() {
