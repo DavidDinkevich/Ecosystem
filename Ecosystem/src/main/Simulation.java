@@ -170,7 +170,7 @@ public class Simulation extends WindowAdapter {
 		// Vision range
 		dna.setGene(3, new Gene(Utils.random(80f, 350f), 15f));
 		// Memory strength
-		dna.setGene(4, new Gene(Utils.random(60 * 8, 60 * 70), 60 * 4));
+		dna.setGene(4, new Gene(Utils.random(60 * 10, 60 * 70), 60 * 3));
 		// Sound cooldown
 		dna.setGene(5, new Gene(Utils.random(60 * 3, 60 * 8), 60 * 1));
 		// Sound lifetime
