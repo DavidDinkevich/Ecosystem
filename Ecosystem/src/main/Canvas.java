@@ -18,7 +18,7 @@ public class Canvas extends PApplet {
 		parentWindow = window;
 		translation = new Vec2.Mutable();
 		scale = 1f;
-		minScale = 0.005f;
+		minScale = 0.1f;
 		maxScale = 15f;
 		setSize(parentWindow.getWidth(), parentWindow.getHeight()-20);
 	}
@@ -65,8 +65,8 @@ public class Canvas extends PApplet {
 	
 	@Override
 	public void mouseWheel(MouseEvent e) {
-		final float scrollDir = e.getCount();
-		final float newScale = scrollDir/10f;	
+		final float scrollDir = (float)e.getCount();
+		final float newScale = scrollDir/100f;	
 		
 		// Maximum zoom out/zoom in
 		if (scale + newScale < minScale || scale + newScale > maxScale) {
