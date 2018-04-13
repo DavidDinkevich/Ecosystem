@@ -8,9 +8,13 @@ import java.util.LinkedList;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Simulation extends WindowAdapter {
-	
-	private Canvas canvas;
+import java.io.Serializable;
+
+public class Simulation extends WindowAdapter implements Serializable {
+
+	private static final long serialVersionUID = 5777179861403381145L;
+
+	public transient Canvas canvas;
 	
 	private List<Agent> agents;
 	private int initNumAgents;
@@ -268,6 +272,9 @@ public class Simulation extends WindowAdapter {
 	
 	@Override
 	public void windowClosed(WindowEvent e) {
+		Saver.save(this);
+		System.out.println("Saved simulation");
+		
 		endStats = SimStats.calculateStats(this);
 		System.out.println();
 		System.out.println("Initial Simulation Statistics:");
