@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Food extends GraphicsEllipse {
 	
+	private static final long serialVersionUID = 2705553895686746409L;
+	
 	private float maxVal;
 	private float value;
 	
