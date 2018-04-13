@@ -66,7 +66,7 @@ public class Canvas extends PApplet {
 	@Override
 	public void mouseWheel(MouseEvent e) {
 		final float scrollDir = (float)e.getCount();
-		final float newScale = scrollDir/100f;	
+		final float newScale = scrollDir/10f;	
 		
 		// Maximum zoom out/zoom in
 		if (scale + newScale < minScale || scale + newScale > maxScale) {
