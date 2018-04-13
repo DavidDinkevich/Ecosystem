@@ -1,7 +1,9 @@
 package main;
 
 public abstract class GraphicsEllipse extends GraphicsObject {
-	
+
+	private static final long serialVersionUID = 2910760275414600677L;
+
 	@Override
 	public boolean equals(Object o) {
 		return super.equals(o) && o instanceof GraphicsEllipse;

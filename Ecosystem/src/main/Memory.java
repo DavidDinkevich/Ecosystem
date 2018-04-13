@@ -1,7 +1,11 @@
 package main;
 
-public class Memory<T> {
-	
+import java.io.Serializable;
+
+public class Memory<T> implements Serializable {
+
+	private static final long serialVersionUID = 6571752705754415898L;
+
 	private T object;
 	private int lifespan;
 	private int currLife;
