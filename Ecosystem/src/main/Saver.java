@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class Saver {
 	
@@ -42,8 +43,12 @@ public class Saver {
 		return null;
 	}
 	
-//	public static File promptUserToLoadSimulation(File parentFile) {
-//		Application app = new Application();
-//	}
+	public static File promptUserToLoadSimulation(String parentFile, Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File(parentFile + File.separator));
+		fileChooser.setTitle("Open Resource File");
+		File chosen = fileChooser.showOpenDialog(stage);
+		return chosen;
+	}
 	
 }
