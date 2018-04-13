@@ -27,11 +27,13 @@ public class MainWindow extends JFrame {
 		canvas = new Canvas(this);
 		add(canvas, BorderLayout.CENTER);
 
-		sim = new Simulation(canvas, 4);
+//		sim = new Simulation(canvas, 4);
+		sim = Saver.loadSimulation("data/sim.sim");
+		sim.canvas = canvas;
 		addWindowListener(sim);
 		
 		canvas.init();
-		sim.init();
+//		sim.init();
 		setVisible(true);
 		canvas.requestFocus();
 
