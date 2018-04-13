@@ -101,12 +101,12 @@ public class Agent extends GraphicsEllipse {
 			c.ellipse(loc, visionRange*2f);
 		}
 		// Display text
-		c.fill(255f);
-		c.textAlign(Canvas.CENTER);
-		c.text(getID(), loc.getX(), loc.getY());
+//		c.fill(0f);
+//		c.textAlign(Canvas.CENTER);
+//		c.text(getID(), loc.getX(), loc.getY());
 		
-		c.fill(0f, 255f, 255f);
-		c.ellipse(currDest, Dimension.TEN);
+//		c.fill(0f, 255f, 255f);
+//		c.ellipse(currDest, Dimension.TEN);
 	}
 	
 	@Override
