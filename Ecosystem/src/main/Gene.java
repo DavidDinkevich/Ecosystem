@@ -1,6 +1,11 @@
 package main;
 
-public class Gene {
+import java.io.Serializable;
+
+public class Gene implements Serializable {
+
+	private static final long serialVersionUID = -1189375062888506383L;
+
 	private float val;
 	private float mutAmt;
 	

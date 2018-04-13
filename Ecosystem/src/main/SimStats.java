@@ -1,10 +1,14 @@
 package main;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SimStats {
+public class SimStats implements Serializable {
+
+	private static final long serialVersionUID = -3751852802778745872L;
+
 	private List<Stat> stats;
 	private int numAgents, numFoods;
 	private Simulation sim;
@@ -122,7 +126,9 @@ public class SimStats {
 //		}
 //	}
 	
-	public static class Stat {
+	public static class Stat implements Serializable {
+		private static final long serialVersionUID = -744424494576046603L;
+		
 		private String name;
 		private float average, min, max;
 		

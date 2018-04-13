@@ -1,6 +1,11 @@
 package main;
 
-public class DNA {
+import java.io.Serializable;
+
+public class DNA implements Serializable {
+
+	private static final long serialVersionUID = -8985907195150639431L;
+
 	private Gene[] genes;
 	
 	public DNA(int numGenes) {
