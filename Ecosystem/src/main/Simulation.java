@@ -293,6 +293,10 @@ public class Simulation extends WindowAdapter implements Serializable {
 		return canvas;
 	}
 	
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+	
 	public List<FoodPatch> getFoodPatches() {
 		return foodPatches;
 	}
