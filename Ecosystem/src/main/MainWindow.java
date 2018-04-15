@@ -17,26 +17,33 @@ public class MainWindow extends JFrame {
 	private Canvas canvas;
 	private Simulation sim;
 
-	public MainWindow() {
+	public MainWindow(Simulation sim) {
 		super("Ecosystem");
 		setSize(1000, 800);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
 
+		// Create and add the Canvas
 		canvas = new Canvas(this);
 		add(canvas, BorderLayout.CENTER);
-
-//		sim = new Simulation(canvas, 4);
-		sim = Saver.loadSimulation("data/sim.sim");
-		sim.canvas = canvas;
-		addWindowListener(sim);
-		
 		canvas.init();
-//		sim.init();
+
+		if (sim == null) {
+			this.sim = new Simulation(canvas, 0);
+			this.sim.init();
+		} else {
+			this.sim = sim;
+			sim.setCanvas(canvas);
+		}
+
+		addWindowListener(sim);
 		setVisible(true);
 		canvas.requestFocus();
-
+	}
+	
+	public MainWindow() {
+		this(null);
 	}
 
 	public Canvas getCanvas() {
