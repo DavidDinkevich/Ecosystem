@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javax.swing.JFileChooser;
 
 public class Saver {
 	
@@ -43,12 +42,18 @@ public class Saver {
 		return null;
 	}
 	
-	public static File promptUserToLoadSimulation(String parentFile, Stage stage) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File(parentFile + File.separator));
-		fileChooser.setTitle("Open Resource File");
-		File chosen = fileChooser.showOpenDialog(stage);
-		return chosen;
+	public static Simulation promptUserToLoadSimulation(String parentFilePath) {
+		JFileChooser fileChooser = new JFileChooser(parentFilePath);
+		fileChooser.setDialogTitle("Open Simulation");
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		final int result = fileChooser.showOpenDialog(null);
+		
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File chosenFile = fileChooser.getSelectedFile();
+			return loadSimulation(chosenFile.getPath());
+		} else {
+			return null;
+		}
 	}
 	
 }
