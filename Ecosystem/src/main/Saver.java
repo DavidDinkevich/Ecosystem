@@ -16,13 +16,24 @@ public class Saver {
 	}
 	
 	public static void save(Simulation sim) {
+		File saveFile = sim.getSaveFile();
+		
+		if (saveFile == null) {
+			JFileChooser chooser = new JFileChooser("data");
+			final int result = chooser.showSaveDialog(null);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				saveFile = chooser.getSelectedFile();
+				sim.setSaveFile(saveFile);
+			}
+		}
+			
 		ObjectOutputStream oos = null; 
 		try {
-			oos = new ObjectOutputStream(new FileOutputStream("data/sim.sim"));
+			oos = new ObjectOutputStream(new FileOutputStream(saveFile));
 			oos.writeObject(sim);
 			oos.close();
 		} catch (IOException e) {
-			System.err.println("Encountered problem while trying to save the default directory file.");
+			System.err.println("Encountered problem while trying to save the Simulation.");
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -30,12 +41,12 @@ public class Saver {
 	
 	public static Simulation loadSimulation(String filePath) {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data/sim.sim"));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath));
 			Simulation sim = (Simulation)ois.readObject();
 			ois.close();
 			return sim;
 		} catch (IOException | ClassNotFoundException e) {
-			System.err.println("Encountered problem while trying to load the default directory file.");
+			System.err.println("Encountered problem while trying to load the Simulation.");
 			e.printStackTrace();
 			System.exit(0);
 		}
