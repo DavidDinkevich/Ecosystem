@@ -8,11 +8,14 @@ import java.util.LinkedList;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Simulation extends WindowAdapter implements Serializable {
 
 	private static final long serialVersionUID = 5777179861403381145L;
+	
+	private File saveFile;
 
 	public transient Canvas canvas;
 	
@@ -42,9 +45,14 @@ public class Simulation extends WindowAdapter implements Serializable {
 	// FOR DEBUGGING
 	public Agent currAgent;
 	
-	public Simulation(Canvas c, int initNumAgents) {
+	public Simulation(File saveFile, Canvas c, int initNumAgents) {
+		this.saveFile = saveFile;
 		canvas = c;
 		this.initNumAgents = initNumAgents;
+	}
+	
+	public Simulation(Canvas c) {
+		this(null, c, 0);
 	}
 	
 	public void init() {
@@ -295,6 +303,14 @@ public class Simulation extends WindowAdapter implements Serializable {
 	
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
+	}
+	
+	public File getSaveFile() {
+		return saveFile;
+	}
+	
+	public void setSaveFile(File file) {
+		saveFile = file;
 	}
 	
 	public List<FoodPatch> getFoodPatches() {
