@@ -30,14 +30,14 @@ public class MainWindow extends JFrame {
 		canvas.init();
 
 		if (sim == null) {
-			this.sim = new Simulation(canvas, 0);
+			this.sim = new Simulation(canvas);
 			this.sim.init();
 		} else {
 			this.sim = sim;
 			sim.setCanvas(canvas);
 		}
 
-		addWindowListener(sim);
+		addWindowListener(this.sim);
 		setVisible(true);
 		canvas.requestFocus();
 	}
