@@ -26,20 +26,9 @@ public class Saver {
 	}
 	
 	public static void save(Simulation sim) {
-		String saveFileName = sim.getSaveFileName();
-		
-		if (saveFileName == null) {
-			JFileChooser chooser = new JFileChooser(defaultSaveDirectory);
-			final int result = chooser.showSaveDialog(null);
-			if (result == JFileChooser.APPROVE_OPTION) {
-				saveFileName = chooser.getSelectedFile().getName();
-				sim.setSaveFileName(saveFileName);
-			}
-		}
-			
 		ObjectOutputStream oos = null; 
 		try {
-			String filePath = defaultSaveDirectory + File.separator + saveFileName;
+			String filePath = defaultSaveDirectory + File.separator + sim.getSaveFileName();
 			oos = new ObjectOutputStream(new FileOutputStream(filePath));
 			oos.writeObject(sim);
 			oos.close();
@@ -50,7 +39,7 @@ public class Saver {
 		}
 	}
 	
-	public static Simulation loadSimulation(String fileName) {
+	public static Simulation load(String fileName) {
 		try {
 			String filePath = defaultSaveDirectory + File.separator + fileName;
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath));
@@ -65,15 +54,30 @@ public class Saver {
 		return null;
 	}
 	
-	public static Simulation promptUserToLoadSimulation(String parentFilePath) {
-		JFileChooser fileChooser = new JFileChooser(parentFilePath);
+	public static void promptUserToSaveSimulation(Simulation sim) {
+		String saveFileName = sim.getSaveFileName();
+		
+		if (saveFileName == null) {
+			JFileChooser chooser = new JFileChooser(defaultSaveDirectory);
+			final int result = chooser.showSaveDialog(null);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				saveFileName = chooser.getSelectedFile().getName();
+				sim.setSaveFileName(saveFileName);
+			}
+		}
+		
+		save(sim);
+	}
+	
+	public static Simulation promptUserToLoadSimulation() {
+		JFileChooser fileChooser = new JFileChooser(defaultSaveDirectory);
 		fileChooser.setDialogTitle("Open Simulation");
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		final int result = fileChooser.showOpenDialog(null);
 		
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File chosenFile = fileChooser.getSelectedFile();
-			return loadSimulation(chosenFile.getName());
+			return load(chosenFile.getName());
 		} else {
 			return null;
 		}
