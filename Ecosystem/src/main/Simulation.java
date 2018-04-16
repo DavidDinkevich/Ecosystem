@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import java.io.Serializable;
 
-public class Simulation extends WindowAdapter implements Serializable {
+public class Simulation implements Serializable {
 
 	private static final long serialVersionUID = 5777179861403381145L;
 	
@@ -39,7 +36,6 @@ public class Simulation extends WindowAdapter implements Serializable {
 	
 	// RECORDS
 	private SimStats startStats;
-	private SimStats endStats;
 
 	// FOR DEBUGGING
 	public Agent currAgent;
@@ -75,6 +71,17 @@ public class Simulation extends WindowAdapter implements Serializable {
 		
 		// Calculate initial stats
 		startStats = SimStats.calculateStats(this);
+	}
+	
+	public String dataReport() {
+		SimStats stats = SimStats.calculateStats(this);
+		StringBuilder report = new StringBuilder("\n");
+		report.append("Initial Simulation Statistics:");
+		report.append(startStats);
+		report.append("\n");
+		report.append("Final Simulation Statistics:");
+		report.append(stats);
+		return report.toString();
 	}
 	
 	public void update() {
@@ -276,21 +283,6 @@ public class Simulation extends WindowAdapter implements Serializable {
 			currAgent = null;
 		}
 	}
-	
-	@Override
-	public void windowClosed(WindowEvent e) {
-		Saver.promptUserToSaveSimulation(this);;
-		System.out.println("Saved simulation");
-		
-		endStats = SimStats.calculateStats(this);
-		System.out.println();
-		System.out.println("Initial Simulation Statistics:");
-		System.out.println(startStats);
-		System.out.println();
-		System.out.println("Final Simulation Statistics:");
-		System.out.println(endStats);
-		System.exit(0);
-	}
 
 	public List<Agent> getAgents() {
 		return agents;
@@ -326,5 +318,9 @@ public class Simulation extends WindowAdapter implements Serializable {
 	
 	public int getMaxConcurrentAgents() {
 		return maxConcurrentAgents;
+	}
+	
+	public SimStats getStartStats() {
+		return startStats;
 	}
 }
