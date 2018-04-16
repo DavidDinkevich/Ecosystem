@@ -54,7 +54,7 @@ public class Saver {
 		return null;
 	}
 	
-	public static void promptUserToSaveSimulation(Simulation sim) {
+	public static boolean promptUserToSaveSimulation(Simulation sim) {
 		String saveFileName = sim.getSaveFileName();
 		
 		if (saveFileName == null) {
@@ -64,9 +64,14 @@ public class Saver {
 				saveFileName = chooser.getSelectedFile().getName();
 				sim.setSaveFileName(saveFileName);
 			}
+			// If user doesn't want to save, exit
+			else {
+				return false;
+			}
 		}
 		
 		save(sim);
+		return true;
 	}
 	
 	public static Simulation promptUserToLoadSimulation() {
