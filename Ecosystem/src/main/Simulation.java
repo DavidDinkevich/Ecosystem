@@ -279,7 +279,7 @@ public class Simulation extends WindowAdapter implements Serializable {
 	
 	@Override
 	public void windowClosed(WindowEvent e) {
-		Saver.save(this);
+		Saver.promptUserToSaveSimulation(this);;
 		System.out.println("Saved simulation");
 		
 		endStats = SimStats.calculateStats(this);
