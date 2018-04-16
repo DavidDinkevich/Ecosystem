@@ -15,21 +15,32 @@ public class Saver {
 		throw new AssertionError();
 	}
 	
+	private static String defaultSaveDirectory = "data";
+	
+	public static String getDefaultSaveDirectory() {
+		return defaultSaveDirectory;
+	}
+	
+	public static void setDefaultSaveDirectory(String s) {
+		defaultSaveDirectory = s;
+	}
+	
 	public static void save(Simulation sim) {
-		File saveFile = sim.getSaveFile();
+		String saveFileName = sim.getSaveFileName();
 		
-		if (saveFile == null) {
-			JFileChooser chooser = new JFileChooser("data");
+		if (saveFileName == null) {
+			JFileChooser chooser = new JFileChooser(defaultSaveDirectory);
 			final int result = chooser.showSaveDialog(null);
 			if (result == JFileChooser.APPROVE_OPTION) {
-				saveFile = chooser.getSelectedFile();
-				sim.setSaveFile(saveFile);
+				saveFileName = chooser.getSelectedFile().getName();
+				sim.setSaveFileName(saveFileName);
 			}
 		}
 			
 		ObjectOutputStream oos = null; 
 		try {
-			oos = new ObjectOutputStream(new FileOutputStream(saveFile));
+			String filePath = defaultSaveDirectory + File.separator + saveFileName;
+			oos = new ObjectOutputStream(new FileOutputStream(filePath));
 			oos.writeObject(sim);
 			oos.close();
 		} catch (IOException e) {
@@ -39,8 +50,9 @@ public class Saver {
 		}
 	}
 	
-	public static Simulation loadSimulation(String filePath) {
+	public static Simulation loadSimulation(String fileName) {
 		try {
+			String filePath = defaultSaveDirectory + File.separator + fileName;
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath));
 			Simulation sim = (Simulation)ois.readObject();
 			ois.close();
@@ -61,7 +73,7 @@ public class Saver {
 		
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File chosenFile = fileChooser.getSelectedFile();
-			return loadSimulation(chosenFile.getPath());
+			return loadSimulation(chosenFile.getName());
 		} else {
 			return null;
 		}
