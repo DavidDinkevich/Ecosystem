@@ -1,11 +1,16 @@
 package main;
 
+import java.io.Serializable;
+
 /**
  * Embodies a 2d dimension, (width + height), with the option to allow
  * the width and height to have negative values. This class is immutable.
  * @author David Dinkevich
  */
-public class Dimension {
+public class Dimension implements Serializable {
+	
+	private static final long serialVersionUID = 7249892867940294132L;
+	
 	public static final Dimension ZERO = new Dimension(0f);
 	public static final Dimension ONE = new Dimension(1f);
 	public static final Dimension TEN = new Dimension(10f);
@@ -229,6 +234,9 @@ public class Dimension {
 	
 	
 	public static class Mutable extends Dimension {
+
+		private static final long serialVersionUID = 2356027853230892596L;
+
 		public Mutable(float w, float h, boolean allowNegativeVals) {
 			super(w, h, allowNegativeVals);
 		}

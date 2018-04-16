@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class FoodPatch extends GraphicsEllipse {
 	
+	private static final long serialVersionUID = -4826240891064563674L;
+	
 	private Simulation sim;
 	private List<Food> foods;
 	private float newFoodRate;

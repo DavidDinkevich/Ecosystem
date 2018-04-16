@@ -1,5 +1,7 @@
 package main;
 
+import java.io.Serializable;
+
 /**
  * Represents a 2 dimensional mathematical vector.
  * <p>
@@ -9,7 +11,10 @@ package main;
  * 
  * @author David Dinkevich
  */
-public class Vec2 {
+public class Vec2 implements Serializable {
+
+	private static final long serialVersionUID = -6592765383687318346L;
+
 	public static final Vec2 ZERO = new Vec2(0f, 0f);
 	
 	protected float x, y;
@@ -264,6 +269,9 @@ public class Vec2 {
 	 * @author David Dinkevich
 	 */
 	public static class Mutable extends Vec2 {
+
+		private static final long serialVersionUID = -3587589766653246016L;
+
 		public Mutable(float x, float y) {
 			super(x, y);
 		}

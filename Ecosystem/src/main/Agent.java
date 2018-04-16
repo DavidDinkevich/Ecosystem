@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Agent extends GraphicsEllipse {
 	
+	private static final long serialVersionUID = -315636718119846248L;
+
 	public static int NUM_GENES = 8;
 		
 	private Simulation sim;

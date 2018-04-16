@@ -1,6 +1,10 @@
 package main;
 
-public class Color {
+import java.io.Serializable;
+
+public class Color implements Serializable {
+	
+	private static final long serialVersionUID = 3569963951733731637L;
 	
 	private float r, g, b, a;
 	

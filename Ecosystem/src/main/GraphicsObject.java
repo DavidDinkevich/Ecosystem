@@ -1,7 +1,11 @@
 package main;
 
-public abstract class GraphicsObject {
-	
+import java.io.Serializable;
+
+public abstract class GraphicsObject implements Serializable {
+
+	private static final long serialVersionUID = -8662825256000837171L;
+
 	// The amount of times that a GraphicsObject has been constructed,
 	// NOT the amount of GraphicsObjects
 	private static int constructionCount = 0;

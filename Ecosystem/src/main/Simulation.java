@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class Simulation extends WindowAdapter {
+public class Simulation implements Serializable {
+
+	private static final long serialVersionUID = 5777179861403381145L;
 	
-	private Canvas canvas;
+	private String saveFileName;
+
+	public transient Canvas canvas;
 	
 	private List<Agent> agents;
 	private int initNumAgents;
@@ -33,14 +36,18 @@ public class Simulation extends WindowAdapter {
 	
 	// RECORDS
 	private SimStats startStats;
-	private SimStats endStats;
 
 	// FOR DEBUGGING
 	public Agent currAgent;
 	
-	public Simulation(Canvas c, int initNumAgents) {
+	public Simulation(String saveFileName, Canvas c, int initNumAgents) {
+		this.saveFileName = saveFileName;
 		canvas = c;
 		this.initNumAgents = initNumAgents;
+	}
+	
+	public Simulation(Canvas c) {
+		this(null, c, 0);
 	}
 	
 	public void init() {
@@ -64,6 +71,17 @@ public class Simulation extends WindowAdapter {
 		
 		// Calculate initial stats
 		startStats = SimStats.calculateStats(this);
+	}
+	
+	public String dataReport() {
+		SimStats stats = SimStats.calculateStats(this);
+		StringBuilder report = new StringBuilder("\n");
+		report.append("Initial Simulation Statistics:");
+		report.append(startStats);
+		report.append("\n");
+		report.append("Final Simulation Statistics:");
+		report.append(stats);
+		return report.toString();
 	}
 	
 	public void update() {
@@ -265,18 +283,6 @@ public class Simulation extends WindowAdapter {
 			currAgent = null;
 		}
 	}
-	
-	@Override
-	public void windowClosed(WindowEvent e) {
-		endStats = SimStats.calculateStats(this);
-		System.out.println();
-		System.out.println("Initial Simulation Statistics:");
-		System.out.println(startStats);
-		System.out.println();
-		System.out.println("Final Simulation Statistics:");
-		System.out.println(endStats);
-		System.exit(0);
-	}
 
 	public List<Agent> getAgents() {
 		return agents;
@@ -284,6 +290,18 @@ public class Simulation extends WindowAdapter {
 	
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+	
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	
+	public void setSaveFileName(String fileName) {
+		saveFileName = fileName;
 	}
 	
 	public List<FoodPatch> getFoodPatches() {
@@ -300,5 +318,9 @@ public class Simulation extends WindowAdapter {
 	
 	public int getMaxConcurrentAgents() {
 		return maxConcurrentAgents;
+	}
+	
+	public SimStats getStartStats() {
+		return startStats;
 	}
 }

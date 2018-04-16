@@ -1,7 +1,9 @@
 package main;
 
 public class Sound extends GraphicsEllipse {
-	
+
+	private static final long serialVersionUID = 3209614259337530317L;
+
 	public static final float EXPANSION_SPEED = 10f;
 	
 	private int sourceID;	
