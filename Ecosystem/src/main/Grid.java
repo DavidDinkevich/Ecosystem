@@ -69,6 +69,9 @@ public class Grid extends GraphicsObject {
 	}
 	
 	private static class Cell implements Serializable {
+
+		private static final long serialVersionUID = -8473469887856452303L;
+
 		private List<GraphicsObject> elements;
 		private Dimension.Mutable size;
 		
