@@ -24,6 +24,7 @@ public class Memory<T> implements Serializable {
 		if (!(o instanceof Memory))
 			return false;
 		// This could fail if this object's T != other's T
+		@SuppressWarnings("unchecked")
 		Memory<T> other = (Memory<T>)o;
 		return object.equals(other.object) 
 				&& lifespan == other.lifespan
