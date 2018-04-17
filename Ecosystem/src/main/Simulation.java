@@ -54,6 +54,9 @@ public class Simulation implements Serializable {
 		run = true;
 		display = true;
 		
+		// Create the grid
+		grid = new Grid(new Dimension(50f * 200f), 200);
+		
 		// Create initial generation
 		agents = new ArrayList<>();
 		for (int i = 0; i < initNumAgents; i++) {
@@ -87,7 +90,7 @@ public class Simulation implements Serializable {
 	public void update() {
 		if (!run)
 			return;
-		
+
 		canvas.background(255f);
 		
 		canvas.textAlign(Canvas.LEFT);
@@ -102,6 +105,12 @@ public class Simulation implements Serializable {
 		
 		canvas.translate(canvas.getTranslation());
 		canvas.scale(canvas.getScale());
+		
+		// GRID
+		if (display) {
+			grid.display(canvas);
+		}
+		grid.update(canvas);
 		
 		for (int i = foodPatches.size()-1; i >= 0; i--) {
 			FoodPatch f = foodPatches.get(i);

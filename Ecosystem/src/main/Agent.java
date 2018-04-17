@@ -110,6 +110,60 @@ public class Agent extends GraphicsEllipse {
 		c.fill(0f, 255f, 255f);
 		c.ellipse(currDest, Dimension.TEN);
 	}
+	@Override
+	public void display(Canvas c) {
+		// Body
+		c.fill(color);
+		c.ellipse(loc, size);
+		// Vision radius
+		if (showVisionRadius) {
+			c.fill(new Color(0, 10f));
+			c.ellipse(loc, visionRange*2f);
+		}
+		// Display text
+//		c.fill(0f);
+//		c.textAlign(Canvas.CENTER);
+//		c.text(getID(), loc.getX(), loc.getY());
+		
+//		c.fill(0f, 255f, 255f);
+//		c.ellipse(currDest, Dimension.TEN);
+	}
+	@Override
+	public void display(Canvas c) {
+		// Body
+		c.fill(color);
+		c.ellipse(loc, size);
+		// Vision radius
+		if (showVisionRadius) {
+			c.fill(new Color(0, 10f));
+			c.ellipse(loc, visionRange*2f);
+		}
+		// Display text
+//		c.fill(0f);
+//		c.textAlign(Canvas.CENTER);
+//		c.text(getID(), loc.getX(), loc.getY());
+		
+//		c.fill(0f, 255f, 255f);
+//		c.ellipse(currDest, Dimension.TEN);
+	}
+	@Override
+	public void display(Canvas c) {
+		// Body
+		c.fill(color);
+		c.ellipse(loc, size);
+		// Vision radius
+		if (showVisionRadius) {
+			c.fill(new Color(0, 10f));
+			c.ellipse(loc, visionRange*2f);
+		}
+		// Display text
+//		c.fill(0f);
+//		c.textAlign(Canvas.CENTER);
+//		c.text(getID(), loc.getX(), loc.getY());
+		
+//		c.fill(0f, 255f, 255f);
+//		c.ellipse(currDest, Dimension.TEN);
+	}
 	
 	@Override
 	public void update(Canvas c) {
