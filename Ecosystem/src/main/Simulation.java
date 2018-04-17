@@ -15,6 +15,8 @@ public class Simulation implements Serializable {
 
 	public transient Canvas canvas;
 	
+	private Grid grid;
+	
 	private List<Agent> agents;
 	private int initNumAgents;
 	

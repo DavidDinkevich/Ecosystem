@@ -1,10 +1,14 @@
 package main;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Grid extends GraphicsObject {
+
+	private static final long serialVersionUID = 4555801987102490820L;
+
 	private Cell[][] cells;
 	
 	public Grid(Dimension s, int numCells) {
@@ -64,7 +68,7 @@ public class Grid extends GraphicsObject {
 		return Dimension.div(size, getSideCellCount(), false);
 	}
 	
-	private static class Cell {
+	private static class Cell implements Serializable {
 		private List<GraphicsObject> elements;
 		private Dimension.Mutable size;
 		
