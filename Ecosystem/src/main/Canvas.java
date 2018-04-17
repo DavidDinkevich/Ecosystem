@@ -18,7 +18,7 @@ public class Canvas extends PApplet {
 		parentWindow = window;
 		translation = new Vec2.Mutable();
 		scale = 1f;
-		minScale = 0.1f;
+		minScale = 0.001f;
 		maxScale = 15f;
 		setSize(parentWindow.getWidth(), parentWindow.getHeight()-20);
 	}
