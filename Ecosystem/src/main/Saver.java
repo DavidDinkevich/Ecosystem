@@ -26,6 +26,7 @@ public class Saver {
 	}
 	
 	public static void save(Simulation sim) {
+		sim.getCanvas().dispose();
 		ObjectOutputStream oos = null; 
 		try {
 			String filePath = defaultSaveDirectory + File.separator + sim.getSaveFileName();
