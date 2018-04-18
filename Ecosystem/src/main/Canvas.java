@@ -94,6 +94,15 @@ public class Canvas extends PApplet {
 	public void rect(Vec2 loc, Dimension size) {
 		rect(loc.x, loc.y, size.width, size.height);
 	}
+	public void text(String text, Vec2 loc) {
+		text(text, loc.getX(), loc.getY());
+	}
+	public void text(int text, Vec2 loc) {
+		text(text, loc.getX(), loc.getY());
+	}
+	public void text(float text, Vec2 loc) {
+		text(text, loc.getX(), loc.getY());
+	}
 	
 	public void translate(Vec2 vec) {
 		translate(vec.getX(), vec.getY());
