@@ -60,7 +60,7 @@ public class Grid extends GraphicsObject {
 		return false;
 	}
 	
-	public Cell getCell(Vec2 point) {
+	public int[] getCell(Vec2 point) {
 		final float cw = getCellSize().getWidth();
 		final float ch = getCellSize().getHeight();
 		final int cellI = getSideCellCount()/2 + (int)Math.floor(point.x/cw);
@@ -70,7 +70,7 @@ public class Grid extends GraphicsObject {
 		if (cellI < 0 || cellI >= getSideCellCount() || 
 				cellJ < 0 || cellJ >= getSideCellCount())
 			return null;
-		return cells[cellI][cellJ];
+		return new int[] { cellI, cellJ };
 	}
 	
 	public int getSideCellCount() {
