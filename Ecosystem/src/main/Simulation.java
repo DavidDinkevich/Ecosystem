@@ -57,7 +57,7 @@ public class Simulation implements Serializable {
 		display = true;
 		
 		// Create the grid
-		grid = new Grid(new Dimension(50f * 200f), 200);
+		grid = new Grid(new Dimension(50f * 100f), 100);
 		
 		// Create initial generation
 		agents = new ArrayList<>();
