@@ -1,7 +1,5 @@
 package main;
 
-import java.io.Serializable;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,9 +15,15 @@ public class Grid extends GraphicsObject {
 		final int sideNumCells = (int)Math.sqrt(numCells);
 		cells = new Cell[sideNumCells][sideNumCells];
 
+		Dimension cellSize = getCellSize();
+		
 		for (int x = 0; x < sideNumCells; x++) {
 			for (int y = 0; y < sideNumCells; y++) {
-				cells[x][y] = new Cell(getCellSize());
+				Vec2 loc = new Vec2(
+						(x-sideNumCells/2) * cellSize.getWidth() + cellSize.getWidth()/2f, 
+						(y-sideNumCells/2) * cellSize.getHeight() + cellSize.getHeight()/2f
+				);
+				cells[x][y] = new Cell(loc, getCellSize());
 			}
 		}
 	}
@@ -30,12 +34,14 @@ public class Grid extends GraphicsObject {
 		
 		c.strokeWeight(10);
 		c.noFill();
+		// Outer frame
 		final float size = this.size.getWidth();
 		c.rect(0f, 0f, size, size);
+
 		c.strokeWeight(1f);
 		
 		Dimension cellSize = getCellSize();
-		
+				
 		for (float x = -size/2f; x < size/2f; x += cellSize.getWidth()) {
 			c.line(x, -size/2f, x, size/2f);
 		}
@@ -46,9 +52,7 @@ public class Grid extends GraphicsObject {
 	
 	@Override
 	public void update(Canvas c) {
-		Vec2 mouse = c.getMouseLocOnGrid();
-//		System.out.println(Arrays.toString(getCell(mouse)));
-		System.out.println(getCell(mouse)[0] + ", " + getCell(mouse)[1]);
+
 	}
 
 	@Override
@@ -56,8 +60,17 @@ public class Grid extends GraphicsObject {
 		return false;
 	}
 	
-	public int[] getCell(Vec2 point) {
-		return new int[] { getSideCellCount()/2 + (int)Math.floor(point.x/getCellSize().getWidth()), (int)Math.floor(point.getY()/100f) };
+	public Cell getCell(Vec2 point) {
+		final float cw = getCellSize().getWidth();
+		final float ch = getCellSize().getHeight();
+		final int cellI = getSideCellCount()/2 + (int)Math.floor(point.x/cw);
+		final int cellJ = getSideCellCount()/2 + (int)Math.floor(point.y/ch);
+		
+		// If out of bounds
+		if (cellI < 0 || cellI >= getSideCellCount() || 
+				cellJ < 0 || cellJ >= getSideCellCount())
+			return null;
+		return cells[cellI][cellJ];
 	}
 	
 	public int getSideCellCount() {
@@ -68,16 +81,33 @@ public class Grid extends GraphicsObject {
 		return Dimension.div(size, getSideCellCount(), false);
 	}
 	
-	private static class Cell implements Serializable {
+	private static class Cell extends GraphicsObject {
 
 		private static final long serialVersionUID = -8473469887856452303L;
 
 		private List<GraphicsObject> elements;
-		private Dimension.Mutable size;
 		
-		public Cell(Dimension size) {
-			this.size = new Dimension.Mutable(size);
+		public Cell(Vec2 loc, Dimension size) {
+			this.loc.set(loc);
+			this.size.set(size);
 			elements = new LinkedList<>();
 		}
+
+		@Override
+		public void update(Canvas c) {
+			
+		}
+		
+		@Override
+		public boolean containsPoint(Vec2 point) {
+			final float x = getLoc().getX();
+			final float y = getLoc().getY();
+			final float w = getSize().getWidth();
+			final float h = getSize().getHeight();
+			
+			return point.x > x - w/2f && point.x < x + w/2 
+					&& point.y > y - h/2f && point.y < y + h/2f;
+		}
+		
 	}
 }
