@@ -59,6 +59,7 @@ public class MainWindow extends JFrame implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		canvas.noLoop();
 		// Prompt user to save Simulation
 		final int result = JOptionPane.showConfirmDialog(this, "Would you like to save "
 				+ "the Simulation?", "Save", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -73,6 +74,7 @@ public class MainWindow extends JFrame implements WindowListener {
 			dispose(); // This may not be necessary
 			System.exit(0);
 		}
+		canvas.loop();
 	}
 	
 	@Override
