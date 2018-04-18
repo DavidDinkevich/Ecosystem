@@ -49,6 +49,11 @@ public class Canvas extends PApplet {
 	
 	@Override
 	public void keyPressed() {
+		// Prevent program exiting if escape is pressed
+		// "keyCode == 27" is for mac.
+		if (key == CODED && keyCode == ESC || keyCode == 27) {
+			key = '\0';
+		}
 		parentWindow.getSimulation().keyPressed();
 	}
 	
