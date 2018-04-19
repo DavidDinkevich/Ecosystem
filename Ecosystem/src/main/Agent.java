@@ -179,7 +179,7 @@ public class Agent extends GraphicsEllipse {
 		Vec2.Mutable sum = new Vec2.Mutable();
 		int count = 0;
 		
-		for (Agent other : others) {
+		for (Agent other : sim.getSurrounding(loc, Agent.class)) {
 			if (getID() == other.getID() || !canSee(other.getLoc()))
 				continue;
 			final float desiredSep = size.getWidth()/2f + other.getSize().getWidth()/2f;
@@ -264,7 +264,8 @@ public class Agent extends GraphicsEllipse {
 	}
 		
 	public void findMate() {
-		for (Agent other : sim.getAgents()) {
+		for (Agent other : sim.getSurrounding(loc, Agent.class)) {
+			if (other.getID() != getID()) other.getColor().set(255f, 0f, 255f);
 			if (getID() == other.getID() || other.state != STATES.MATE || 
 					!canSee(other.getLoc()))
 				continue;
@@ -288,7 +289,7 @@ public class Agent extends GraphicsEllipse {
 		float shortestDist = 1000000f; // Easily beatable
 		Sound closestSound = null;
 		
-		for (Sound sound : sim.getSounds()) {
+		for (Sound sound : sim.getSurrounding(loc, Sound.class)) {
 			if (sound.getSourceID() != getID() && intersects(sound)) {
 				final float dist = Vec2.dist(loc, sound.getLoc());
 				if (dist < shortestDist) {
@@ -327,7 +328,7 @@ public class Agent extends GraphicsEllipse {
 	private void updateMemory() {
 		// Fill memory with all foods in sight
 		
-		for (Food food : sim.getAllFoods()) {
+		for (Food food : sim.getSurrounding(loc, Food.class)) {
 			if (!canSee(food.getLoc()))
 				continue;
 			// Check if the food is already in our memory
