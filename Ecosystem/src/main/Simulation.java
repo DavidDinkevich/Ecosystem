@@ -96,6 +96,7 @@ public class Simulation implements Serializable {
 		canvas.background(255f);
 		
 		canvas.textAlign(Canvas.LEFT);
+		canvas.textSize(10f);
 		canvas.fill(0);
 		canvas.text("Num Agents: " + agents.size(), 10f, canvas.height-150f);
 		canvas.text("Max Concurrent Agents: " + maxConcurrentAgents, 10f, canvas.height-125f);
@@ -122,6 +123,8 @@ public class Simulation implements Serializable {
 			}
 			if (display)
 				f.display(canvas);
+			// Register the foods on the Grid
+			grid.register(f.getFoods());
 			f.update(canvas);
 		}
 
@@ -133,6 +136,8 @@ public class Simulation implements Serializable {
 			}
 			if (display)
 				a.display(canvas);
+			// Register the foods on the Grid
+			grid.register(a);
 			a.update(canvas);
 		}
 		
@@ -145,6 +150,8 @@ public class Simulation implements Serializable {
 			}
 			if (display && displaySound)
 				sound.display(canvas);
+			// Register the foods on the Grid
+			grid.register(sound);
 			sound.update(canvas);
 		}
 
@@ -293,6 +300,10 @@ public class Simulation implements Serializable {
 			agents.clear();
 			currAgent = null;
 		}
+	}
+	
+	public <T extends GraphicsObject> List<T> getSurrounding(Vec2 loc, Class<T> type) {
+		return grid.getSurrounding(loc, type);
 	}
 
 	public List<Agent> getAgents() {
