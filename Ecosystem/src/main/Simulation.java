@@ -12,7 +12,8 @@ public class Simulation implements Serializable {
 	
 	private String saveFileName;
 
-	public transient Canvas canvas;
+	private transient MainWindow parentWindow;
+	private transient Canvas canvas;
 		
 	private List<Agent> agents;
 	private int initNumAgents;
@@ -37,14 +38,15 @@ public class Simulation implements Serializable {
 	// RECORDS
 	private SimStats startStats;
 	
-	public Simulation(String saveFileName, Canvas c, int initNumAgents) {
+	public Simulation(String saveFileName, MainWindow parentWindow, int initNumAgents) {
 		this.saveFileName = saveFileName;
-		canvas = c;
+		this.parentWindow = parentWindow;
+		canvas = parentWindow.getCanvas();
 		this.initNumAgents = initNumAgents;
 	}
 	
-	public Simulation(Canvas c) {
-		this(null, c, 0);
+	public Simulation(MainWindow parentWindow) {
+		this(null, parentWindow, 0);
 	}
 	
 	public void init() {
@@ -159,7 +161,9 @@ public class Simulation implements Serializable {
 		}
 		
 		foodPatchesToAdd.clear();
-
+		
+		// Update Data Panel
+		parentWindow.getDataPanel().updateStats();
 				
 		// Update statistics
 		maxConcurrentAgents = Math.max(maxConcurrentAgents, agents.size());
