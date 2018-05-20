@@ -102,7 +102,24 @@ public class Simulation implements Serializable {
 		
 		canvas.translate(canvas.getTranslation());
 		canvas.scale(canvas.getScale());
+		
+		// Draw Grid
+		
+		final float size = 5000f;
+		final float cellSize = 5000f/10f;
+		
+		canvas.strokeWeight(1f);
+		canvas.stroke(0f, 200f);
+		
+		for (float x = -size/2f; x <= size/2f; x += cellSize) {
+			canvas.line(x, -size/2f, x, size/2f);
+		}
+		
+		for (float y = -size/2f; y <= size/2f; y += cellSize) {
+			canvas.line(-size/2f, y, size/2f, y);
+		}
 				
+		
 		for (int i = foodPatches.size()-1; i >= 0; i--) {
 			FoodPatch f = foodPatches.get(i);
 			if (f.isDead()) {
