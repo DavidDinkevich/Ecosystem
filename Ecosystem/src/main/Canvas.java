@@ -20,7 +20,7 @@ public class Canvas extends PApplet {
 		scale = 1f;
 		minScale = 0.1f;
 		maxScale = 15f;
-		setSize(parentWindow.getWidth(), parentWindow.getHeight()-20);
+		setSize(800, 800);
 	}
 	
 	@Override
