@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 
 /**
@@ -21,10 +23,11 @@ public class MainWindow extends JFrame implements WindowListener {
 	private Simulation sim;
 	
 	private SimControlPanel controlPanel;
+	private JComponent dataPanel;
 
 	public MainWindow(Simulation sim) {
 		super("Ecosystem");
-		setSize(1100, 820);
+		setSize(1300, 820);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -35,7 +38,7 @@ public class MainWindow extends JFrame implements WindowListener {
 		canvas.init();
 
 		if (sim == null) {
-			this.sim = new Simulation(canvas);
+			this.sim = new Simulation(this);
 			this.sim.init();
 		} else {
 			this.sim = sim;
@@ -44,6 +47,9 @@ public class MainWindow extends JFrame implements WindowListener {
 
 		controlPanel = new SimControlPanel(this);
 		add(controlPanel, BorderLayout.WEST);
+		
+		dataPanel = new AgentStatsPanel(this, null);
+		add(new JScrollPane(dataPanel), BorderLayout.EAST);
 		
 		addWindowListener(this);
 		setVisible(true);
@@ -64,6 +70,10 @@ public class MainWindow extends JFrame implements WindowListener {
 	
 	public SimControlPanel getControlPanel() {
 		return controlPanel;
+	}
+	
+	public AgentStatsPanel getDataPanel() {
+		return (AgentStatsPanel) dataPanel;
 	}
 
 	@Override
