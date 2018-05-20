@@ -194,19 +194,23 @@ public class SimControlPanel extends JComponent implements MouseListener {
 			for (Agent agent : sim.getAgents()) {
 				if (agent.containsPoint(mouse)) {
 					if (currAgent != null) {
-						currAgent.getColor().set(0f, 0f, 0f);
+						currAgent.getColor().set(0f);
 					}
 					newAgent = true;
 					currAgent = agent;
 					currAgent.getColor().set(255f, 0f, 255f);
+					
 					break;
 				}
 			}
 			if (!newAgent) {
 				if (currAgent != null)
-					currAgent.getColor().set(0f, 0f, 0f);
+					currAgent.getColor().set(0f);
 				currAgent = null;
 			}			
+			
+			// Update data panel
+			parentWindow.getDataPanel().setAgent(currAgent);
 		}
 		
 		else if (addAgentButton.isSelected()) {
