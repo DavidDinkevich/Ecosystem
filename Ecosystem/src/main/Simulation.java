@@ -36,9 +36,6 @@ public class Simulation implements Serializable {
 	
 	// RECORDS
 	private SimStats startStats;
-
-	// FOR DEBUGGING
-	public Agent currAgent;
 	
 	public Simulation(String saveFileName, Canvas c, int initNumAgents) {
 		this.saveFileName = saveFileName;
@@ -159,6 +156,7 @@ public class Simulation implements Serializable {
 		maxConcurrentAgents = Math.max(maxConcurrentAgents, agents.size());
 		maxConcurrentFood = Math.max(maxConcurrentFood, allFoods.size());
 		
+		/*
 		if (currAgent != null) {
 			System.out.println("Agent: " + currAgent.getID());
 			System.out.println("State: " + currAgent.getState());
@@ -190,6 +188,7 @@ public class Simulation implements Serializable {
 				currAgent = null;
 			}
 		}
+		*/
 	}
 	
 	public Agent genRandomAgent() {
@@ -231,55 +230,8 @@ public class Simulation implements Serializable {
 	public void keyPressed() {
 //		final char key = e.getKeyChar();
 		final char key = canvas.key;
-		Vec2 mouse = canvas.getMouseLocOnGrid();
 
-		if (key == 'p') {
-			run = !run;
-		}
-		else if (key == 'v') {
-			for (Agent agent : agents) {
-				if (agent.containsPoint(mouse)) {
-					agent.setShowVisionRadius(!agent.getShowVisionRadius());
-				}
-			}
-		}
-		else if (key == 'a') {
-			Agent agent = genRandomAgent();
-			agent.setLoc(mouse);
-			agents.add(agent);
-		}
-		else if (key == 'f') {
-			for (FoodPatch patch : foodPatches) {
-				if (patch.containsPoint(mouse)) {
-					patch.addFoods(1);
-					break;
-				}
-			}
-		}
-		else if (key == 'o') {
-			FoodPatch patch = new FoodPatch(this, 10);
-			patch.setLoc(mouse);
-			foodPatches.add(patch);
-		}
-		else if (key == 'i') {
-			boolean newAgent = false;
-			for (Agent agent : agents) {
-				if (agent.containsPoint(mouse)) {
-					if (currAgent != null) {
-						currAgent.getColor().set(0f, 0f, 0f);
-					}
-					newAgent = true;
-					currAgent = agent;
-					currAgent.getColor().set(255f, 0f, 255f);
-					break;
-				}
-			}
-			if (!newAgent) {
-				if (currAgent != null) currAgent.getColor().set(0f, 0f, 0f);
-				currAgent = null;
-			}
-		}
-		else if (Character.isDigit(key)) {
+		if (Character.isDigit(key)) {
 			canvas.frameRate(Character.getNumericValue(canvas.key) * 10f);
 			System.out.println("Frame Rate: " + canvas.frameRate);
 		}
@@ -289,16 +241,26 @@ public class Simulation implements Serializable {
 			System.out.println("Simulation Statistics:");
 			System.out.println(startStats);
 		}
-		else if (key == 'd') {
-			display = !display;
-		}
-		else if (key == 's') {
-			displaySound = !displaySound;
-		}
-		else if (key == 'k') {
-			agents.clear();
-			currAgent = null;
-		}
+	}
+	
+	public void togglePause() {
+		run = !run;
+	}
+	
+	public boolean isDisplayingAll() {
+		return display;
+	}
+	
+	public void setDisplayAll(boolean val) {
+		display = val;
+	}
+	
+	public boolean displaySounds() {
+		return displaySound;
+	}
+	
+	public void setDisplaySounds(boolean val) {
+		displaySound = val;
 	}
 
 	public List<Agent> getAgents() {
