@@ -3,7 +3,6 @@ package main;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import java.io.Serializable;
 
@@ -21,6 +20,7 @@ public class Simulation implements Serializable {
 	// FOOD
 	private List<FoodPatch> foodPatches;
 	private List<Food> allFoods;
+	private List<FoodPatch> foodPatchesToAdd;
 	
 	// SOUND
 	private List<Sound> sounds;
@@ -58,13 +58,15 @@ public class Simulation implements Serializable {
 			agents.add(agent);
 		}
 		
-		allFoods = new LinkedList<>();
+		allFoods = new ArrayList<>();
 		
 		foodPatches = new ArrayList<>();
 		// Initial FoodPatch
 		foodPatches.add(new FoodPatch(this, 20));
 		
-		sounds = new LinkedList<>();
+		foodPatchesToAdd = new ArrayList<>();
+		
+		sounds = new ArrayList<>();
 		
 		// Calculate initial stats
 		startStats = SimStats.calculateStats(this);
@@ -150,6 +152,13 @@ public class Simulation implements Serializable {
 				sound.display(canvas);
 			sound.update(canvas);
 		}
+		
+		// Add all queued food patches 
+		for (FoodPatch patch : foodPatchesToAdd) {
+			foodPatches.add(patch);
+		}
+		
+		foodPatchesToAdd.clear();
 
 				
 		// Update statistics
@@ -241,6 +250,10 @@ public class Simulation implements Serializable {
 			System.out.println("Simulation Statistics:");
 			System.out.println(startStats);
 		}
+	}
+	
+	public void addLater(FoodPatch patch) {
+		foodPatchesToAdd.add(patch);
 	}
 	
 	public void togglePause() {
