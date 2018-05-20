@@ -19,14 +19,16 @@ public class MainWindow extends JFrame implements WindowListener {
 	
 	private Canvas canvas;
 	private Simulation sim;
+	
+	private SimControlPanel controlPanel;
 
 	public MainWindow(Simulation sim) {
 		super("Ecosystem");
-		setSize(1000, 800);
+		setSize(1100, 820);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout());
-
+		
 		// Create and add the Canvas
 		canvas = new Canvas(this);
 		add(canvas, BorderLayout.CENTER);
@@ -40,9 +42,12 @@ public class MainWindow extends JFrame implements WindowListener {
 			sim.setCanvas(canvas);
 		}
 
+		controlPanel = new SimControlPanel(this);
+		add(controlPanel, BorderLayout.WEST);
+		
 		addWindowListener(this);
 		setVisible(true);
-		canvas.requestFocus();
+		canvas.requestFocus();		
 	}
 	
 	public MainWindow() {
@@ -55,6 +60,10 @@ public class MainWindow extends JFrame implements WindowListener {
 	
 	public Simulation getSimulation() {
 		return sim;
+	}
+	
+	public SimControlPanel getControlPanel() {
+		return controlPanel;
 	}
 
 	@Override
