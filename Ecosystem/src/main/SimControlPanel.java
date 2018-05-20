@@ -30,7 +30,6 @@ public class SimControlPanel extends JComponent implements MouseListener {
 	private JToggleButton pauseButton;
 	private JToggleButton infoButton;
 	private JToggleButton addFoodPatchButton;
-	private JToggleButton growFoodPatchButton;
 	private JToggleButton addAgentButton;
 	private JToggleButton toggleDisplayAgentVisionButton;
 	private JButton killAllAgentsButton;
@@ -57,7 +56,6 @@ public class SimControlPanel extends JComponent implements MouseListener {
 		initDisplayVisionCheckBox();
 		initInfoButton();
 		initAddFoodPatchButton();
-		initGrowFoodPatchButton();
 		initAddAgentButton();
 		initToggleDisplayAgentVisionButton();
 		initKillAllAgentsButton();
@@ -127,13 +125,6 @@ public class SimControlPanel extends JComponent implements MouseListener {
 		buttonGroup.add(addFoodPatchButton);
 	}
 	
-	private void initGrowFoodPatchButton() {
-		growFoodPatchButton = new JToggleButton("Grow Food Patch");
-		growFoodPatchButton.setPreferredSize(getButtonSize());
-		add(growFoodPatchButton, "wrap");
-		buttonGroup.add(growFoodPatchButton);
-	}
-	
 	private void initAddAgentButton() {
 		addAgentButton = new JToggleButton("Add Agent");
 		addAgentButton.setPreferredSize(getButtonSize());
@@ -196,8 +187,6 @@ public class SimControlPanel extends JComponent implements MouseListener {
 		Vec2 mouse = canvas.getMouseLocOnGrid();
 		Simulation sim = parentWindow.getSimulation();
 		
-		pauseButton.doClick();
-		
 		if (infoButton.isSelected()) {
 			buttonGroup.clearSelection();
 			
@@ -235,20 +224,7 @@ public class SimControlPanel extends JComponent implements MouseListener {
 				buttonGroup.clearSelection();
 			FoodPatch patch = new FoodPatch(sim, 10);
 			patch.setLoc(mouse);
-			sim.getFoodPatches().add(patch);
-		}
-		
-		else if (growFoodPatchButton.isSelected()) {
-			// If the user is not holding down shift, deselect button
-			if (!(canvas.keyPressed && canvas.keyCode == PConstants.SHIFT))
-				buttonGroup.clearSelection();
-			
-			for (FoodPatch patch : sim.getFoodPatches()) {
-				if (patch.containsPoint(mouse)) {
-					patch.addFoods(1);
-					break;
-				}
-			}
+			sim.addLater(patch);
 		}
 		
 		else if (toggleDisplayAgentVisionButton.isSelected()) {
@@ -262,8 +238,6 @@ public class SimControlPanel extends JComponent implements MouseListener {
 				}
 			}
 		}
-		
-		pauseButton.doClick();
 	}
 	
 	
