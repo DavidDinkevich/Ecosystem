@@ -1,4 +1,4 @@
-package graphics;
+package graphics.ui;
 
 import processing.event.MouseEvent;
 import utils.Color;
