@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import graphics.Canvas;
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;
