@@ -11,6 +11,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import graphics.StyleManager;
+
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;
@@ -74,34 +76,9 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	private java.awt.Dimension getButtonSize() {
 		return new java.awt.Dimension(165, pauseButton.getHeight());
 	}
-	
-	private JCheckBox newCheckBox(String text) {
-		JCheckBox newLabel = new JCheckBox(text);
-		Color col = new Color(0, 255, 255);
-		newLabel.setForeground(col);
-		newLabel.setRolloverEnabled(false);
-		newLabel.setOpaque(false);
-		return newLabel;
-	}
-	
-	private JToggleButton newToggleButton(String text) {
-		JToggleButton butt = new JToggleButton(text);
-		Color col = new Color(0, 255, 255);
-		butt.setBackground(col);
-		butt.setOpaque(true);
-//		butt.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2));
-		return butt;
-	}
-	
-	private JButton newButton(String text) {
-		JButton butt = new JButton(text);
-		Color col = new Color(0, 255, 255);
-		butt.setBackground(col);
-		return butt;
-	}
-	
+		
 	private void initPauseButton() {
-		pauseButton = newToggleButton("Pause");
+		pauseButton = StyleManager.newToggleButton("Pause");
 		pauseButton.setPreferredSize(getButtonSize());
 		add(pauseButton, "wrap " + gapDistance);
 		
@@ -111,7 +88,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initDisplayAllCheckBox() {
-		displayAllCheckBox = newCheckBox("Display All");
+		displayAllCheckBox = StyleManager.newCheckBox("Display All");
 		displayAllCheckBox.setSelected(true);
 		add(displayAllCheckBox, "wrap");
 		
@@ -122,7 +99,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initDisplaySoundsCheckBox() {
-		displaySoundsCheckBox = newCheckBox("Display Sounds");
+		displaySoundsCheckBox = StyleManager.newCheckBox("Display Sounds");
 		add(displaySoundsCheckBox, "wrap");
 		
 		displaySoundsCheckBox.addChangeListener(e -> {
@@ -133,7 +110,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initDisplayVisionCheckBox() {
-		displayVisionCheckBox = newCheckBox("Display Vision Radii");
+		displayVisionCheckBox = StyleManager.newCheckBox("Display Vision Radii");
 		add(displayVisionCheckBox, "wrap " + + gapDistance);
 		
 		displayVisionCheckBox.addChangeListener(e -> {
@@ -145,35 +122,35 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initInfoButton() {
-		infoButton = newToggleButton("Info");
+		infoButton = StyleManager.newToggleButton("Info");
 		infoButton.setPreferredSize(getButtonSize());
 		add(infoButton, "wrap");
 		buttonGroup.add(infoButton);
 	}
 	
 	private void initAddFoodPatchButton() {
-		addFoodPatchButton = newToggleButton("Add Food Patch");
+		addFoodPatchButton = StyleManager.newToggleButton("Add Food Patch");
 		addFoodPatchButton.setPreferredSize(getButtonSize());
 		add(addFoodPatchButton, "wrap");
 		buttonGroup.add(addFoodPatchButton);
 	}
 	
 	private void initAddAgentButton() {
-		addAgentButton = newToggleButton("Add Agent");
+		addAgentButton = StyleManager.newToggleButton("Add Agent");
 		addAgentButton.setPreferredSize(getButtonSize());
 		add(addAgentButton, "wrap");
 		buttonGroup.add(addAgentButton);
 	}
 	
 	private void initToggleDisplayAgentVisionButton() {
-		toggleDisplayAgentVisionButton = newToggleButton("Show Agent Vision");
+		toggleDisplayAgentVisionButton = StyleManager.newToggleButton("Show Agent Vision");
 		toggleDisplayAgentVisionButton.setPreferredSize(getButtonSize());
 		add(toggleDisplayAgentVisionButton, "wrap");
 		buttonGroup.add(toggleDisplayAgentVisionButton);
 	}
 	
 	private void initKillAllAgentsButton() {
-		killAllAgentsButton = newButton("Kill All Agents");
+		killAllAgentsButton = StyleManager.newButton("Kill All Agents");
 		killAllAgentsButton.setPreferredSize(getButtonSize());
 		add(killAllAgentsButton, "wrap");
 		
@@ -184,7 +161,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initClearAllFoodPatchesButton() {
-		clearAllFoodPatchesButton = newButton("Clear Food Patches");
+		clearAllFoodPatchesButton = StyleManager.newButton("Clear Food Patches");
 		clearAllFoodPatchesButton.setPreferredSize(getButtonSize());
 		add(clearAllFoodPatchesButton, "wrap");
 		
@@ -195,7 +172,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initClearAllButton() {
-		clearAllButton = newButton("Clear All");
+		clearAllButton = StyleManager.newButton("Clear All");
 		clearAllButton.setPreferredSize(getButtonSize());
 		add(clearAllButton, "wrap");
 		
