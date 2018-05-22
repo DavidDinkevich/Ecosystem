@@ -2,21 +2,15 @@ package graphics.ui;
 
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import net.miginfocom.swing.MigLayout;
 
 import simelements.Agent;
 
-public class AgentStatsPanel extends JPanel {
+public class AgentStatsPanel extends StatsPanel<Agent> {
 
 	private static final long serialVersionUID = -7730111280150089222L;
-	
-	private Agent agent;
-	
+		
 	private JLabel titleLabel, agentIDLabel;
 	private JLabel sizeLabel, sizeValueLabel;
 	private JLabel speedLabel, speedValueLabel;
@@ -31,10 +25,7 @@ public class AgentStatsPanel extends JPanel {
 	private JLabel foodInMemoryLabel, foodInMemoryValueLabel;
 	
 	public AgentStatsPanel(MainWindow parentWindow, Agent agent) {
-		this.agent = agent;
-		
-		setPreferredSize(new Dimension(300, parentWindow.getHeight()));
-		setLayout(new MigLayout("", "[]26[]", "[]10[]"));
+		super(parentWindow, agent);
 		
 		titleLabel = new JLabel("Agent");
 		agentIDLabel = new JLabel();
@@ -93,34 +84,26 @@ public class AgentStatsPanel extends JPanel {
 		this(parentWindow, null);
 	}
 	
-	public void setAgent(Agent agent) {
-		this.agent = agent;
-		updateStats();
-	}
-	
+	@Override
 	public void updateStats() {
-		if (agent != null) {
-			agentIDLabel.setText("ID: " + agent.getID());
-			sizeValueLabel.setText("" + agent.getSize().getWidth());
-			speedValueLabel.setText("" + agent.getMaxSpeed());
-			steeringPowerValueLabel.setText("" + agent.getSteeringPower());
-			final float maxFood = agent.getDna().getGene(1).getValue();
-			hungerValueLabel.setText("" + agent.getHunger() + " / " + maxFood);
-			final float minFoodForMating = maxFood * agent.getDna().getGene(2).getValue();
+		if (getObject() != null) {
+			agentIDLabel.setText("ID: " + getObject().getID());
+			sizeValueLabel.setText("" + getObject().getSize().getWidth());
+			speedValueLabel.setText("" + getObject().getMaxSpeed());
+			steeringPowerValueLabel.setText("" + getObject().getSteeringPower());
+			final float maxFood = getObject().getDna().getGene(1).getValue();
+			hungerValueLabel.setText("" + getObject().getHunger() + " / " + maxFood);
+			final float minFoodForMating = maxFood * getObject().getDna().getGene(2).getValue();
 			minMatingFoodValueLabel.setText("" + minFoodForMating);
-			explorationRangeValueLabel.setText("" + agent.getDna().getGene(7).getValue());
-			visionRangeValueLabel.setText("" + agent.getDna().getGene(3).getValue());
-			final int soundCooldown = (int)agent.getDna().getGene(5).getValue();
+			explorationRangeValueLabel.setText("" + getObject().getDna().getGene(7).getValue());
+			visionRangeValueLabel.setText("" + getObject().getDna().getGene(3).getValue());
+			final int soundCooldown = (int)getObject().getDna().getGene(5).getValue();
 			soundCooldownValueLabel.setText(soundCooldown + " (" + soundCooldown/60 + ")");
-			final int soundLifetime = (int)agent.getDna().getGene(6).getValue();
+			final int soundLifetime = (int)getObject().getDna().getGene(6).getValue();
 			soundLifetimeValueLabel.setText(soundLifetime + " (" + soundLifetime/60 + ")");
-			final int memStrength = (int)agent.getDna().getGene(4).getValue();
+			final int memStrength = (int)getObject().getDna().getGene(4).getValue();
 			memoryStrengthValueLabel.setText(memStrength + " (" + memStrength/60 + ")");
-			foodInMemoryValueLabel.setText("" + agent.getFoodMemory().size());
+			foodInMemoryValueLabel.setText("" + getObject().getFoodMemory().size());
 		}
-	}
-	
-	public Agent getAgent() {
-		return agent;
 	}
 }

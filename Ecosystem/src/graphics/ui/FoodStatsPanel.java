@@ -1,21 +1,15 @@
 package graphics.ui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import net.miginfocom.swing.MigLayout;
 
 import simelements.Food;
 
-public class FoodStatsPanel extends JPanel {
+public class FoodStatsPanel extends StatsPanel<Food> {
 
 	private static final long serialVersionUID = 8280311947731112920L;
-
-	private Food food;
 	
 	private JLabel titleLabel;
 	private JLabel foodIDLabel;
@@ -23,10 +17,7 @@ public class FoodStatsPanel extends JPanel {
 	private JLabel numAgentsLabel, numAgentsValueLabel;
 	
 	public FoodStatsPanel(MainWindow parentWindow, Food food) {
-		this.food = food;
-		
-		setPreferredSize(new Dimension(300, parentWindow.getHeight()));
-		setLayout(new MigLayout("", "[]26[]", "[]10[]"));
+		super(parentWindow, food);
 		
 		titleLabel = new JLabel("Food");
 		foodIDLabel = new JLabel();
@@ -45,19 +36,11 @@ public class FoodStatsPanel extends JPanel {
 		add(numAgentsValueLabel, "wrap");
 	}
 	
-	public Food getFood() {
-		return food;
-	}
-	
-	public void setFood(Food food) {
-		this.food = food;
-		updateStats();
-	}
-	
+	@Override
 	public void updateStats() {
-		if (food != null) {
-			foodAmtValueLabel.setText(food.getValue() + " / " + food.getMaxValue());
-			numAgentsValueLabel.setText("" + food.getAgents().size());
+		if (getObject() != null) {
+			foodAmtValueLabel.setText(getObject().getValue() + " / " + getObject().getMaxValue());
+			numAgentsValueLabel.setText("" + getObject().getAgents().size());
 		}
 	}
 	
