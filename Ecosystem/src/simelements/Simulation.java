@@ -1,0 +1,328 @@
+package simelements;
+
+import java.util.List;
+
+import main.Canvas;
+import main.MainWindow;
+import utils.Utils;
+import utils.Vec2;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import java.io.Serializable;
+
+public class Simulation implements Serializable {
+
+	private static final long serialVersionUID = 5777179861403381145L;
+	
+	private String saveFileName;
+
+	private transient MainWindow parentWindow;
+	private transient Canvas canvas;
+		
+	private List<Agent> agents;
+	private int initNumAgents;
+	
+	// FOOD
+	private List<FoodPatch> foodPatches;
+	private List<Food> allFoods;
+	private List<FoodPatch> foodPatchesToAdd;
+	
+	// SOUND
+	private List<Sound> sounds;
+	
+	// MECHANICS
+	private boolean run;
+	private boolean display;
+	private boolean displaySound;
+	
+	// STATISTICS
+	private int maxConcurrentAgents;
+	private int maxConcurrentFood;
+	
+	// RECORDS
+	private SimStats startStats;
+	
+	public Simulation(String saveFileName, MainWindow parentWindow, int initNumAgents) {
+		this.saveFileName = saveFileName;
+		this.parentWindow = parentWindow;
+		canvas = parentWindow.getCanvas();
+		this.initNumAgents = initNumAgents;
+	}
+	
+	public Simulation(MainWindow parentWindow) {
+		this(null, parentWindow, 0);
+	}
+	
+	public void init() {
+		run = true;
+		display = true;
+				
+		// Create initial generation
+		agents = new ArrayList<>();
+		for (int i = 0; i < initNumAgents; i++) {
+			Agent agent = genRandomAgent();
+			agents.add(agent);
+		}
+		
+		allFoods = new ArrayList<>();
+		
+		foodPatches = new ArrayList<>();
+		// Initial FoodPatch
+		foodPatches.add(new FoodPatch(this, 20));
+		
+		foodPatchesToAdd = new ArrayList<>();
+		
+		sounds = new ArrayList<>();
+		
+		// Calculate initial stats
+		startStats = SimStats.calculateStats(this);
+	}
+	
+	public String dataReport() {
+		SimStats stats = SimStats.calculateStats(this);
+		StringBuilder report = new StringBuilder("\n");
+		report.append("Initial Simulation Statistics:");
+		report.append(startStats);
+		report.append("\n");
+		report.append("Final Simulation Statistics:");
+		report.append(stats);
+		return report.toString();
+	}
+	
+	public void update() {
+		if (!run)
+			return;
+
+		canvas.background(255f);
+		
+		canvas.textAlign(Canvas.LEFT);
+		canvas.fill(0);
+		canvas.text("Num Agents: " + agents.size(), 10f, canvas.height-150f);
+		canvas.text("Max Concurrent Agents: " + maxConcurrentAgents, 10f, canvas.height-125f);
+		canvas.text("Num Foods: " + allFoods.size(), 10f, canvas.height-100f);
+		canvas.text("Max Concurrent Food: " + maxConcurrentFood, 10f, canvas.height-75f); 
+		canvas.text("FPS: " + canvas.frameRate, 10f, canvas.height-50f);
+		canvas.text("Frame Count: " + canvas.frameCount + " (" + canvas.frameCount/60 + ")", 
+				10f, canvas.height-25f);
+		
+		canvas.translate(canvas.getTranslation());
+		canvas.scale(canvas.getScale());
+		
+		// Draw Grid
+		
+		final float size = 5000f;
+		final float cellSize = 5000f/10f;
+		
+		canvas.strokeWeight(1f);
+		canvas.stroke(0f, 200f);
+		
+		for (float x = -size/2f; x <= size/2f; x += cellSize) {
+			canvas.line(x, -size/2f, x, size/2f);
+		}
+		
+		for (float y = -size/2f; y <= size/2f; y += cellSize) {
+			canvas.line(-size/2f, y, size/2f, y);
+		}
+				
+		
+		for (int i = foodPatches.size()-1; i >= 0; i--) {
+			FoodPatch f = foodPatches.get(i);
+			if (f.isDead()) {
+				foodPatches.remove(i);
+				continue;
+			}
+			if (display)
+				f.display(canvas);
+			f.update(canvas);
+		}
+
+		for (int i = agents.size()-1; i >= 0; i--) {
+			Agent a = agents.get(i);
+			if (a.isDead()) {
+				agents.remove(i);
+				continue;
+			}
+			if (display)
+				a.display(canvas);
+			a.update(canvas);
+		}
+		
+		Iterator<Sound> soundsIt = sounds.iterator();
+		while (soundsIt.hasNext()) {
+			Sound sound = soundsIt.next();
+			if (sound.isDead()) {
+				soundsIt.remove();
+				continue;
+			}
+			if (display && displaySound)
+				sound.display(canvas);
+			sound.update(canvas);
+		}
+		
+		// Add all queued food patches 
+		for (FoodPatch patch : foodPatchesToAdd) {
+			foodPatches.add(patch);
+		}
+		
+		foodPatchesToAdd.clear();
+		
+		// Update Data Panel
+		parentWindow.getDataPanel().updateStats();
+				
+		// Update statistics
+		maxConcurrentAgents = Math.max(maxConcurrentAgents, agents.size());
+		maxConcurrentFood = Math.max(maxConcurrentFood, allFoods.size());
+		
+		/*
+		if (currAgent != null) {
+			System.out.println("Agent: " + currAgent.getID());
+			System.out.println("State: " + currAgent.getState());
+			System.out.println("Size: " + currAgent.getSize().getWidth());
+			System.out.println("Speed: " + currAgent.getMaxSpeed());
+			System.out.println("Steering Power: " + currAgent.getSteeringPower());
+			// "Hunger: <current food> / <max food> / <min food for mating>"
+			final float maxFood = currAgent.getDna().getGene(1).getValue();
+			final float minFoodForMating = maxFood * currAgent.getDna().getGene(2).getValue();
+			System.out.println(
+					"Hunger: " + currAgent.getHunger() + " / " + 
+					maxFood + " / " + 
+					minFoodForMating
+			);
+			System.out.println("Bite Size: " + currAgent.getBiteSize());
+			System.out.println("Vision Range: " + currAgent.getDna().getGene(3).getValue());
+			System.out.println("Exploration Range: " + currAgent.getDna().getGene(7).getValue());
+			final int soundCooldown = (int)currAgent.getDna().getGene(5).getValue();
+			System.out.println("Sound Cooldown: " + soundCooldown + " (" + soundCooldown/60 + ")");
+			final int soundLifetime = (int)currAgent.getDna().getGene(6).getValue();
+			System.out.println("Sound Lifetime: " + soundLifetime + " (" + soundLifetime/60 + ")");
+			final int memStrength = (int)currAgent.getDna().getGene(4).getValue();
+			System.out.println("Memory Strength: " + memStrength + " (" + memStrength/60 + ")");
+			System.out.println("Food in Memory: " + currAgent.getFoodMemory().size());
+			System.out.println("Children: " + currAgent.getNumChildren());
+			System.out.println();
+			if (currAgent.isDead()) {
+				System.out.println("Agent: " + currAgent.getID() + " DIED!");
+				currAgent = null;
+			}
+		}
+		*/
+	}
+	
+	public Agent genRandomAgent() {
+		DNA dna = new DNA(Agent.NUM_GENES);
+		
+		// Size
+		final float size = Utils.random(10f, 60f);
+		dna.setGene(0, new Gene(size, 8f));
+		// Max Hunger
+		dna.setGene(1, new Gene(Utils.constrain(size/20f, 1f, 2.5f), 0.4f));
+		// Min food for mating
+		dna.setGene(2, new Gene(0.7f, 0.1f));
+		// Vision range
+		dna.setGene(3, new Gene(Utils.random(80f, 350f), 15f));
+		// Memory strength
+		dna.setGene(4, new Gene(Utils.random(60 * 10, 60 * 70), 60 * 3));
+		// Sound cooldown
+		dna.setGene(5, new Gene(Utils.random(60 * 3, 60 * 8), 60 * 1));
+		// Sound lifetime
+		dna.setGene(6, new Gene(Utils.random(25, 60 * 2), 10));
+		// Exploration range
+		dna.setGene(7, new Gene(Math.abs(Utils.random(60f, 220f)), 30f));
+		
+		Agent agent = new Agent(this, dna);
+		Vec2 loc = canvas.randomLoc();
+		agent.setLoc(loc);
+		return agent;
+	}
+	
+	public Food genRandomFood() {
+		Vec2 loc = canvas.randomLoc();
+		final float val = Utils.random(0.8f, 2.8f);
+		return new Food(loc, val);
+	}
+	
+	public void mousePressed() {	
+	}
+	
+	public void keyPressed() {
+//		final char key = e.getKeyChar();
+		final char key = canvas.key;
+
+		if (Character.isDigit(key)) {
+			canvas.frameRate(Character.getNumericValue(canvas.key) * 10f);
+			System.out.println("Frame Rate: " + canvas.frameRate);
+		}
+		else if (key == 'r') {
+			startStats = SimStats.calculateStats(this);
+			System.out.println();
+			System.out.println("Simulation Statistics:");
+			System.out.println(startStats);
+		}
+	}
+	
+	public void addLater(FoodPatch patch) {
+		foodPatchesToAdd.add(patch);
+	}
+	
+	public void togglePause() {
+		run = !run;
+	}
+	
+	public boolean isDisplayingAll() {
+		return display;
+	}
+	
+	public void setDisplayAll(boolean val) {
+		display = val;
+	}
+	
+	public boolean displaySounds() {
+		return displaySound;
+	}
+	
+	public void setDisplaySounds(boolean val) {
+		displaySound = val;
+	}
+
+	public List<Agent> getAgents() {
+		return agents;
+	}
+	
+	public Canvas getCanvas() {
+		return canvas;
+	}
+	
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+	
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+	
+	public void setSaveFileName(String fileName) {
+		saveFileName = fileName;
+	}
+	
+	public List<FoodPatch> getFoodPatches() {
+		return foodPatches;
+	}
+	
+	public List<Food> getAllFoods() {
+		return allFoods;
+	}
+	
+	public List<Sound> getSounds() {
+		return sounds;
+	}
+	
+	public int getMaxConcurrentAgents() {
+		return maxConcurrentAgents;
+	}
+	
+	public SimStats getStartStats() {
+		return startStats;
+	}
+}
