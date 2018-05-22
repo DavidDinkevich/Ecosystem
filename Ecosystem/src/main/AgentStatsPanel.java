@@ -2,12 +2,12 @@ package main;
 
 import java.awt.Font;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-public class AgentStatsPanel extends JComponent {
+public class AgentStatsPanel extends JPanel {
 
 	private static final long serialVersionUID = -7730111280150089222L;
 	
@@ -29,64 +29,76 @@ public class AgentStatsPanel extends JComponent {
 	public AgentStatsPanel(MainWindow parentWindow, Agent agent) {
 		this.agent = agent;
 		
+		setBackground(java.awt.Color.BLACK);
 		setPreferredSize(new java.awt.Dimension(300, parentWindow.getHeight()));
 		setLayout(new MigLayout("", "[]26[]", "[]10[]"));
 		
-		titleLabel = new JLabel("Agent");
-		agentIDLabel = new JLabel();
+		titleLabel = newLabel("Agent");
+		agentIDLabel = newLabel();
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
 		agentIDLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		agentIDLabel.setForeground(new java.awt.Color(150, 150, 150));
 		add(titleLabel);
 		add(agentIDLabel, "wrap");
-		sizeLabel = new JLabel("Size:");
-		sizeValueLabel = new JLabel();
+		sizeLabel = newLabel("Size:");
+		sizeValueLabel = newLabel();
 		add(sizeLabel);
 		add(sizeValueLabel, "wrap");
-		speedLabel = new JLabel("Speed:");
-		speedValueLabel = new JLabel();
+		speedLabel = newLabel("Speed:");
+		speedValueLabel = newLabel();
 		add(speedLabel);
 		add(speedValueLabel, "wrap");
-		steeringPowerLabel = new JLabel("Steering Power:");
-		steeringPowerValueLabel = new JLabel();
+		steeringPowerLabel = newLabel("Steering Power:");
+		steeringPowerValueLabel = newLabel();
 		add(steeringPowerLabel);
 		add(steeringPowerValueLabel, "wrap");
-		hungerLabel = new JLabel("Hunger:");
-		hungerValueLabel = new JLabel();
+		hungerLabel = newLabel("Hunger:");
+		hungerValueLabel = newLabel();
 		add(hungerLabel);
 		add(hungerValueLabel, "wrap");
-		minMatingFoodLabel = new JLabel("Min Food to Mate:");
-		minMatingFoodValueLabel = new JLabel();
+		minMatingFoodLabel = newLabel("Min Food to Mate:");
+		minMatingFoodValueLabel = newLabel();
 		add(minMatingFoodLabel);
 		add(minMatingFoodValueLabel, "wrap");
-		explorationRangeLabel = new JLabel("Exploration Range:");
-		explorationRangeValueLabel = new JLabel();
+		explorationRangeLabel = newLabel("Exploration Range:");
+		explorationRangeValueLabel = newLabel();
 		add(explorationRangeLabel);
 		add(explorationRangeValueLabel, "wrap");
-		visionRangeLabel = new JLabel("Vision Range:");
-		visionRangeValueLabel = new JLabel();
+		visionRangeLabel = newLabel("Vision Range:");
+		visionRangeValueLabel = newLabel();
 		add(visionRangeLabel);
 		add(visionRangeValueLabel, "wrap");
-		soundCooldownLabel = new JLabel("Sound Cooldown:");
-		soundCooldownValueLabel = new JLabel();
+		soundCooldownLabel = newLabel("Sound Cooldown:");
+		soundCooldownValueLabel = newLabel();
 		add(soundCooldownLabel);
 		add(soundCooldownValueLabel, "wrap");
-		soundLifetimeLabel = new JLabel("Sound Lifetime:");
-		soundLifetimeValueLabel = new JLabel();
+		soundLifetimeLabel = newLabel("Sound Lifetime:");
+		soundLifetimeValueLabel = newLabel();
 		add(soundLifetimeLabel);
 		add(soundLifetimeValueLabel, "wrap");
-		memoryStrengthLabel = new JLabel("Memory Strength:");
-		memoryStrengthValueLabel = new JLabel();
+		memoryStrengthLabel = newLabel("Memory Strength:");
+		memoryStrengthValueLabel = newLabel();
 		add(memoryStrengthLabel);
 		add(memoryStrengthValueLabel, "wrap");
-		foodInMemoryLabel = new JLabel("Food in Memory:");
-		foodInMemoryValueLabel = new JLabel();
+		foodInMemoryLabel = newLabel("Food in Memory:");
+		foodInMemoryValueLabel = newLabel();
 		add(foodInMemoryLabel);
 		add(foodInMemoryValueLabel, "wrap");
 	}
 	
 	public AgentStatsPanel(MainWindow parentWindow) {
 		this(parentWindow, null);
+	}
+	
+	private JLabel newLabel(String text) {
+		JLabel newLabel = new JLabel(text);
+		java.awt.Color col = new java.awt.Color(0, 255, 255);
+		newLabel.setForeground(col);
+		return newLabel;
+	}
+	
+	private JLabel newLabel() {
+		return newLabel("");
 	}
 	
 	public void setAgent(Agent agent) {
