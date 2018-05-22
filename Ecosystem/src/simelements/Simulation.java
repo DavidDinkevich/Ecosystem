@@ -2,7 +2,7 @@ package simelements;
 
 import java.util.List;
 
-import graphics.Canvas;
+import graphics.ui.Canvas;
 import main.MainWindow;
 import utils.Utils;
 import utils.Vec2;

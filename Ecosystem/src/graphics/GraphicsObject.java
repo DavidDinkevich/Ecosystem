@@ -2,6 +2,7 @@ package graphics;
 
 import java.io.Serializable;
 
+import graphics.ui.Canvas;
 import utils.Color;
 import utils.Dimension;
 import utils.Vec2;

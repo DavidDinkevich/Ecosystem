@@ -1,5 +1,6 @@
 package graphics;
 
+import graphics.ui.Canvas;
 import utils.Vec2;
 
 public abstract class GraphicsEllipse extends GraphicsObject {

@@ -2,8 +2,8 @@ package simelements;
 
 import java.util.List;
 
-import graphics.Canvas;
 import graphics.GraphicsEllipse;
+import graphics.ui.Canvas;
 import utils.Utils;
 import utils.Vec2;
 

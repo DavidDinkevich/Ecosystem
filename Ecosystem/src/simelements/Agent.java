@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import graphics.Canvas;
 import graphics.GraphicsEllipse;
+import graphics.ui.Canvas;
 import utils.Color;
 import utils.Utils;
 import utils.Vec2;

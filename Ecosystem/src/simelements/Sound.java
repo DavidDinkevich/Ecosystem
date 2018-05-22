@@ -1,7 +1,7 @@
 package simelements;
 
-import graphics.Canvas;
 import graphics.GraphicsEllipse;
+import graphics.ui.Canvas;
 import utils.Dimension;
 import utils.Utils;
 import utils.Vec2;

@@ -3,8 +3,8 @@ package simelements;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.Canvas;
 import graphics.GraphicsEllipse;
+import graphics.ui.Canvas;
 import utils.Vec2;
 
 public class Food extends GraphicsEllipse {

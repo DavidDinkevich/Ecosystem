@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import graphics.Canvas;
+import graphics.ui.Canvas;
 import simelements.Saver;
 import simelements.Simulation;
 
