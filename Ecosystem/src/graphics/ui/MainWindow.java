@@ -26,7 +26,7 @@ public class MainWindow extends JFrame implements WindowListener {
 	private Simulation sim;
 	
 	private SimControlPanel controlPanel;
-	private JPanel dataPanel;
+	private StatsPanel<?> dataPanel;
 
 	public MainWindow(Simulation sim) {
 		super("Ecosystem");
@@ -52,7 +52,8 @@ public class MainWindow extends JFrame implements WindowListener {
 		add(controlPanel, BorderLayout.WEST);
 		
 		dataPanel = new AgentStatsPanel(this, null);
-		add(new JScrollPane(dataPanel), BorderLayout.EAST);
+		add(dataPanel, BorderLayout.EAST);
+//		add(new JScrollPane(dataPanel), BorderLayout.EAST);
 		
 		addWindowListener(this);
 		setVisible(true);
@@ -75,8 +76,14 @@ public class MainWindow extends JFrame implements WindowListener {
 		return controlPanel;
 	}
 	
-	public AgentStatsPanel getDataPanel() {
-		return (AgentStatsPanel) dataPanel;
+	public StatsPanel<?> getDataPanel() {
+		return dataPanel;
+	}
+	
+	public void setDataPanel(StatsPanel<?> panel) {
+		remove(dataPanel);
+		dataPanel = panel;
+		add(dataPanel, BorderLayout.EAST);
 	}
 
 	@Override
