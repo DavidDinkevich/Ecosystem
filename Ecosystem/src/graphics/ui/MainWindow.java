@@ -6,7 +6,6 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import simelements.Saver;
@@ -26,6 +25,7 @@ public class MainWindow extends JFrame implements WindowListener {
 	private Simulation sim;
 	
 	private SimControlPanel controlPanel;
+	private JScrollPane dataPanelScrollPane;
 	private StatsPanel<?> dataPanel;
 
 	public MainWindow(Simulation sim) {
@@ -52,8 +52,8 @@ public class MainWindow extends JFrame implements WindowListener {
 		add(controlPanel, BorderLayout.WEST);
 		
 		dataPanel = new AgentStatsPanel(this, null);
-		add(dataPanel, BorderLayout.EAST);
-//		add(new JScrollPane(dataPanel), BorderLayout.EAST);
+		dataPanelScrollPane = new JScrollPane(dataPanel);
+		add(dataPanelScrollPane, BorderLayout.EAST);
 		
 		addWindowListener(this);
 		setVisible(true);
@@ -81,9 +81,8 @@ public class MainWindow extends JFrame implements WindowListener {
 	}
 	
 	public void setDataPanel(StatsPanel<?> panel) {
-		remove(dataPanel);
 		dataPanel = panel;
-		add(dataPanel, BorderLayout.EAST);
+		dataPanelScrollPane.setViewportView(dataPanel);
 	}
 
 	@Override
