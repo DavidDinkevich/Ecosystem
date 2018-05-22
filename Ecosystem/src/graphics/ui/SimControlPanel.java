@@ -1,8 +1,10 @@
 package graphics.ui;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -11,11 +13,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import graphics.GraphicsObject;
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;
 
 import simelements.Agent;
+import simelements.Food;
 import simelements.FoodPatch;
 import simelements.Simulation;
 
@@ -43,8 +47,8 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	private JButton clearAllFoodPatchesButton;
 	private JButton clearAllButton;
 	
-	// Currently selected agent (if there is one)
-	private Agent currAgent;
+	// Currently selected object (if there is one)
+	private GraphicsObject currAgent;
 	
 	public SimControlPanel(MainWindow parentWindow) {
 		this.parentWindow = parentWindow;
@@ -69,8 +73,8 @@ public class SimControlPanel extends JPanel implements MouseListener {
 		initClearAllButton();
 	}
 	
-	private java.awt.Dimension getButtonSize() {
-		return new java.awt.Dimension(165, pauseButton.getHeight());
+	private Dimension getButtonSize() {
+		return new Dimension(165, pauseButton.getHeight());
 	}
 	
 	private void initPauseButton() {
@@ -196,8 +200,11 @@ public class SimControlPanel extends JPanel implements MouseListener {
 		if (infoButton.isSelected()) {
 			buttonGroup.clearSelection();
 			
+			List<GraphicsObject> objects = new ArrayList<>(sim.getAgents());
+			objects.addAll(sim.getAllFoods());
+			
 			boolean newAgent = false;
-			for (Agent agent : sim.getAgents()) {
+			for (GraphicsObject agent : objects) {
 				if (agent.containsPoint(mouse)) {
 					if (currAgent != null) {
 						currAgent.getColor().set(0f);
@@ -214,9 +221,15 @@ public class SimControlPanel extends JPanel implements MouseListener {
 					currAgent.getColor().set(0f);
 				currAgent = null;
 			}			
-			
+						
 			// Update data panel
-			parentWindow.getDataPanel().setAgent(currAgent);
+			if (currAgent instanceof Agent) {
+				AgentStatsPanel panel = new AgentStatsPanel(parentWindow, (Agent)currAgent);
+				parentWindow.setDataPanel(panel);
+			} else if (currAgent instanceof Food) {
+				FoodStatsPanel panel = new FoodStatsPanel(parentWindow, (Food)currAgent);
+				parentWindow.setDataPanel(panel);
+			}
 		}
 		
 		else if (addAgentButton.isSelected()) {
