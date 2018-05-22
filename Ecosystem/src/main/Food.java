@@ -3,6 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.Vec2;
+
 public class Food extends GraphicsEllipse {
 	
 	private static final long serialVersionUID = 2705553895686746409L;

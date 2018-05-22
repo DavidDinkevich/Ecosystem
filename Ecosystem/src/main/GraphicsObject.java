@@ -2,6 +2,10 @@ package main;
 
 import java.io.Serializable;
 
+import utils.Color;
+import utils.Dimension;
+import utils.Vec2;
+
 public abstract class GraphicsObject implements Serializable {
 
 	private static final long serialVersionUID = -8662825256000837171L;

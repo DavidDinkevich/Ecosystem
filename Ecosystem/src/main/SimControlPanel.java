@@ -13,6 +13,7 @@ import javax.swing.JToggleButton;
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;
+import utils.Vec2;
 
 public class SimControlPanel extends JPanel implements MouseListener {
 

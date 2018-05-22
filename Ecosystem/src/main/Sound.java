@@ -1,5 +1,9 @@
 package main;
 
+import utils.Dimension;
+import utils.Utils;
+import utils.Vec2;
+
 public class Sound extends GraphicsEllipse {
 
 	private static final long serialVersionUID = 3209614259337530317L;

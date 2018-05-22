@@ -4,6 +4,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import utils.Color;
+import utils.Utils;
+import utils.Vec2;
+
 public class Agent extends GraphicsEllipse {
 	
 	private static final long serialVersionUID = -315636718119846248L;

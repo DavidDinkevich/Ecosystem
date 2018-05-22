@@ -2,6 +2,8 @@ package main;
 
 import java.io.Serializable;
 
+import utils.Utils;
+
 public class Gene implements Serializable {
 
 	private static final long serialVersionUID = -1189375062888506383L;

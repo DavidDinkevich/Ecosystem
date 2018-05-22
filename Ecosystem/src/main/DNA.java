@@ -2,6 +2,8 @@ package main;
 
 import java.io.Serializable;
 
+import utils.Utils;
+
 public class DNA implements Serializable {
 
 	private static final long serialVersionUID = -8985907195150639431L;

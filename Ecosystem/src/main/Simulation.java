@@ -1,6 +1,10 @@
 package main;
 
 import java.util.List;
+
+import utils.Utils;
+import utils.Vec2;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
