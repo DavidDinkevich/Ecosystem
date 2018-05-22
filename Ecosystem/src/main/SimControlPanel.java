@@ -7,14 +7,14 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;
 
-public class SimControlPanel extends JComponent implements MouseListener {
+public class SimControlPanel extends JPanel implements MouseListener {
 
 	private static final long serialVersionUID = -2079485536930521833L;
 
