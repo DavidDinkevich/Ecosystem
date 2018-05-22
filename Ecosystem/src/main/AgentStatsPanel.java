@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
+import simelements.Agent;
 
 public class AgentStatsPanel extends JPanel {
 

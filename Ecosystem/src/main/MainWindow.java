@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import simelements.Saver;
+import simelements.Simulation;
+
 
 /**
  * Main class/window - contains the main method.

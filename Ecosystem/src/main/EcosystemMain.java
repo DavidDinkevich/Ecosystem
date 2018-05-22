@@ -3,6 +3,9 @@ package main;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import simelements.Saver;
+import simelements.Simulation;
+
 public class EcosystemMain {
 	
 	public static void main(String[] args) {
