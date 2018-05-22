@@ -87,16 +87,16 @@ public class Canvas extends PApplet {
 		stroke(color.r(), color.g(), color.b(), color.a());
 	}
 	public void ellipse(Vec2 loc, float sizeX, float sizeY) {
-		ellipse(loc.x, loc.y, sizeX, sizeY);
+		ellipse(loc.getX(), loc.getY(), sizeX, sizeY);
 	}
 	public void ellipse(Vec2 loc, float diam) {
-		ellipse(loc.x, loc.y, diam, diam);
+		ellipse(loc.getX(), loc.getY(), diam, diam);
 	}
 	public void ellipse(Vec2 loc, Dimension size) {
 		ellipse(loc, size.getWidth(), size.getHeight());
 	}
 	public void rect(Vec2 loc, Dimension size) {
-		rect(loc.x, loc.y, size.width, size.height);
+		rect(loc.getX(), loc.getY(), size.getWidth(), size.getHeight());
 	}
 	
 	public void translate(Vec2 vec) {
@@ -163,7 +163,8 @@ public class Canvas extends PApplet {
 	}
 	
 	public boolean containsPoint(Vec2 point) {
-		return point.x >= 0f && point.x < width && point.y >= 0f && point.y < height;
+		return point.getX() >= 0f && point.getX() < width && 
+				point.getY() >= 0f && point.getY() < height;
 	}
 	public Vec2 randomLoc() {
 		return new Vec2(Utils.random(-width/2f, width/2f), Utils.random(-height/2f, height/2f));
