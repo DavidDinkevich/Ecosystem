@@ -33,76 +33,64 @@ public class AgentStatsPanel extends JPanel {
 	public AgentStatsPanel(MainWindow parentWindow, Agent agent) {
 		this.agent = agent;
 		
-		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(300, parentWindow.getHeight()));
 		setLayout(new MigLayout("", "[]26[]", "[]10[]"));
 		
-		titleLabel = newLabel("Agent");
-		agentIDLabel = newLabel();
+		titleLabel = new JLabel("Agent");
+		agentIDLabel = new JLabel();
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
 		agentIDLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		agentIDLabel.setForeground(new Color(150, 150, 150));
 		add(titleLabel);
 		add(agentIDLabel, "wrap");
-		sizeLabel = newLabel("Size:");
-		sizeValueLabel = newLabel();
+		sizeLabel = new JLabel("Size:");
+		sizeValueLabel = new JLabel();
 		add(sizeLabel);
 		add(sizeValueLabel, "wrap");
-		speedLabel = newLabel("Speed:");
-		speedValueLabel = newLabel();
+		speedLabel = new JLabel("Speed:");
+		speedValueLabel = new JLabel();
 		add(speedLabel);
 		add(speedValueLabel, "wrap");
-		steeringPowerLabel = newLabel("Steering Power:");
-		steeringPowerValueLabel = newLabel();
+		steeringPowerLabel = new JLabel("Steering Power:");
+		steeringPowerValueLabel = new JLabel();
 		add(steeringPowerLabel);
 		add(steeringPowerValueLabel, "wrap");
-		hungerLabel = newLabel("Hunger:");
-		hungerValueLabel = newLabel();
+		hungerLabel = new JLabel("Hunger:");
+		hungerValueLabel = new JLabel();
 		add(hungerLabel);
 		add(hungerValueLabel, "wrap");
-		minMatingFoodLabel = newLabel("Min Food to Mate:");
-		minMatingFoodValueLabel = newLabel();
+		minMatingFoodLabel = new JLabel("Min Food to Mate:");
+		minMatingFoodValueLabel = new JLabel();
 		add(minMatingFoodLabel);
 		add(minMatingFoodValueLabel, "wrap");
-		explorationRangeLabel = newLabel("Exploration Range:");
-		explorationRangeValueLabel = newLabel();
+		explorationRangeLabel = new JLabel("Exploration Range:");
+		explorationRangeValueLabel = new JLabel();
 		add(explorationRangeLabel);
 		add(explorationRangeValueLabel, "wrap");
-		visionRangeLabel = newLabel("Vision Range:");
-		visionRangeValueLabel = newLabel();
+		visionRangeLabel = new JLabel("Vision Range:");
+		visionRangeValueLabel = new JLabel();
 		add(visionRangeLabel);
 		add(visionRangeValueLabel, "wrap");
-		soundCooldownLabel = newLabel("Sound Cooldown:");
-		soundCooldownValueLabel = newLabel();
+		soundCooldownLabel = new JLabel("Sound Cooldown:");
+		soundCooldownValueLabel = new JLabel();
 		add(soundCooldownLabel);
 		add(soundCooldownValueLabel, "wrap");
-		soundLifetimeLabel = newLabel("Sound Lifetime:");
-		soundLifetimeValueLabel = newLabel();
+		soundLifetimeLabel = new JLabel("Sound Lifetime:");
+		soundLifetimeValueLabel = new JLabel();
 		add(soundLifetimeLabel);
 		add(soundLifetimeValueLabel, "wrap");
-		memoryStrengthLabel = newLabel("Memory Strength:");
-		memoryStrengthValueLabel = newLabel();
+		memoryStrengthLabel = new JLabel("Memory Strength:");
+		memoryStrengthValueLabel = new JLabel();
 		add(memoryStrengthLabel);
 		add(memoryStrengthValueLabel, "wrap");
-		foodInMemoryLabel = newLabel("Food in Memory:");
-		foodInMemoryValueLabel = newLabel();
+		foodInMemoryLabel = new JLabel("Food in Memory:");
+		foodInMemoryValueLabel = new JLabel();
 		add(foodInMemoryLabel);
 		add(foodInMemoryValueLabel, "wrap");
 	}
 	
 	public AgentStatsPanel(MainWindow parentWindow) {
 		this(parentWindow, null);
-	}
-	
-	private JLabel newLabel(String text) {
-		JLabel newLabel = new JLabel(text);
-		Color col = new Color(0, 255, 255);
-		newLabel.setForeground(col);
-		return newLabel;
-	}
-	
-	private JLabel newLabel() {
-		return newLabel("");
 	}
 	
 	public void setAgent(Agent agent) {
