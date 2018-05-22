@@ -1,4 +1,4 @@
-package main;
+package graphics.ui;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import graphics.ui.Canvas;
 import simelements.Saver;
 import simelements.Simulation;
 

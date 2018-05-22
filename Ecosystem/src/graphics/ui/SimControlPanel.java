@@ -1,4 +1,4 @@
-package main;
+package graphics.ui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,7 +10,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import graphics.ui.Canvas;
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;

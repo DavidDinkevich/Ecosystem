@@ -1,4 +1,4 @@
-package main;
+package graphics.ui;
 
 import java.awt.Font;
 
