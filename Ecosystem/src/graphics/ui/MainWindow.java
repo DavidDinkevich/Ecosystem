@@ -51,7 +51,7 @@ public class MainWindow extends JFrame implements WindowListener {
 		controlPanel = new SimControlPanel(this);
 		add(controlPanel, BorderLayout.WEST);
 		
-		dataPanel = new AgentStatsPanel(this, null);
+		dataPanel = new EmptyStatsPanel(this);
 		dataPanelScrollPane = new JScrollPane(dataPanel);
 		add(dataPanelScrollPane, BorderLayout.EAST);
 		
