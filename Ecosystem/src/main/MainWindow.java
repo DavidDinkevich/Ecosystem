@@ -4,9 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 
@@ -23,7 +23,7 @@ public class MainWindow extends JFrame implements WindowListener {
 	private Simulation sim;
 	
 	private SimControlPanel controlPanel;
-	private JComponent dataPanel;
+	private JPanel dataPanel;
 
 	public MainWindow(Simulation sim) {
 		super("Ecosystem");
