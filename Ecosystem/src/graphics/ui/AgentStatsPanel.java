@@ -1,11 +1,14 @@
 package graphics.ui;
 
 import java.awt.Font;
+import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
+
 import simelements.Agent;
 
 public class AgentStatsPanel extends JPanel {
@@ -30,15 +33,15 @@ public class AgentStatsPanel extends JPanel {
 	public AgentStatsPanel(MainWindow parentWindow, Agent agent) {
 		this.agent = agent;
 		
-		setBackground(java.awt.Color.BLACK);
-		setPreferredSize(new java.awt.Dimension(300, parentWindow.getHeight()));
+		setBackground(Color.BLACK);
+		setPreferredSize(new Dimension(300, parentWindow.getHeight()));
 		setLayout(new MigLayout("", "[]26[]", "[]10[]"));
 		
 		titleLabel = newLabel("Agent");
 		agentIDLabel = newLabel();
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
 		agentIDLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		agentIDLabel.setForeground(new java.awt.Color(150, 150, 150));
+		agentIDLabel.setForeground(new Color(150, 150, 150));
 		add(titleLabel);
 		add(agentIDLabel, "wrap");
 		sizeLabel = newLabel("Size:");
@@ -93,7 +96,7 @@ public class AgentStatsPanel extends JPanel {
 	
 	private JLabel newLabel(String text) {
 		JLabel newLabel = new JLabel(text);
-		java.awt.Color col = new java.awt.Color(0, 255, 255);
+		Color col = new Color(0, 255, 255);
 		newLabel.setForeground(col);
 		return newLabel;
 	}

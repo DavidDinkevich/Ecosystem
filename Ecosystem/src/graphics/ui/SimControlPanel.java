@@ -2,6 +2,7 @@ package graphics.ui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -13,9 +14,11 @@ import javax.swing.JToggleButton;
 import net.miginfocom.swing.MigLayout;
 
 import processing.core.PConstants;
+
 import simelements.Agent;
 import simelements.FoodPatch;
 import simelements.Simulation;
+
 import utils.Vec2;
 
 public class SimControlPanel extends JPanel implements MouseListener {
@@ -49,7 +52,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 		gapDistance = 40;
 		
 		setBorder(BorderFactory.createEtchedBorder());
-		setBackground(java.awt.Color.BLACK);
+		setBackground(Color.BLACK);
 		
 		setLayout(new MigLayout("insets 30 30 30 30"));
 		
@@ -74,7 +77,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	
 	private JCheckBox newCheckBox(String text) {
 		JCheckBox newLabel = new JCheckBox(text);
-		java.awt.Color col = new java.awt.Color(0, 255, 255);
+		Color col = new Color(0, 255, 255);
 		newLabel.setForeground(col);
 		newLabel.setRolloverEnabled(false);
 		newLabel.setOpaque(false);
@@ -83,16 +86,16 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	
 	private JToggleButton newToggleButton(String text) {
 		JToggleButton butt = new JToggleButton(text);
-		java.awt.Color col = new java.awt.Color(0, 255, 255);
+		Color col = new Color(0, 255, 255);
 		butt.setBackground(col);
 		butt.setOpaque(true);
-//		butt.setBorder(BorderFactory.createLineBorder(java.awt.Color.CYAN, 2));
+//		butt.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2));
 		return butt;
 	}
 	
 	private JButton newButton(String text) {
 		JButton butt = new JButton(text);
-		java.awt.Color col = new java.awt.Color(0, 255, 255);
+		Color col = new Color(0, 255, 255);
 		butt.setBackground(col);
 		return butt;
 	}
