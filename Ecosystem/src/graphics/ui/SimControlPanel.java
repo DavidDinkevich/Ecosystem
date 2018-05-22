@@ -220,6 +220,8 @@ public class SimControlPanel extends JPanel implements MouseListener {
 				if (currAgent != null)
 					currAgent.getColor().set(0f);
 				currAgent = null;
+				// Clear the data panel
+				parentWindow.setDataPanel(new EmptyStatsPanel(parentWindow));
 			}			
 						
 			// Update data panel
