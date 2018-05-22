@@ -5,7 +5,6 @@ import utils.Color;
 import utils.Dimension;
 import utils.Utils;
 import utils.Vec2;
-import main.MainWindow;
 import processing.core.PApplet;
 
 public class Canvas extends PApplet {

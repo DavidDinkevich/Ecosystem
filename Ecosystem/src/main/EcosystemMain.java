@@ -3,6 +3,7 @@ package main;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import graphics.ui.MainWindow;
 import simelements.Saver;
 import simelements.Simulation;
 
