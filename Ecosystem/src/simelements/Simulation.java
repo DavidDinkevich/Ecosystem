@@ -169,7 +169,8 @@ public class Simulation implements Serializable {
 		foodPatchesToAdd.clear();
 		
 		// Update Data Panel
-		parentWindow.getDataPanel().updateStats();
+		if (parentWindow.getDataPanel() != null)
+			parentWindow.getDataPanel().updateStats();
 				
 		// Update statistics
 		maxConcurrentAgents = Math.max(maxConcurrentAgents, agents.size());
@@ -270,6 +271,14 @@ public class Simulation implements Serializable {
 		run = !run;
 	}
 	
+	public void setPaused(boolean val) {
+		run = !val;
+	}
+	
+	public boolean isPaused() {
+		return !run;
+	}
+	
 	public boolean isDisplayingAll() {
 		return display;
 	}
@@ -296,6 +305,14 @@ public class Simulation implements Serializable {
 	
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
+	}
+	
+	public MainWindow getParentWindow() {
+		return parentWindow;
+	}
+	
+	public void setParentWindow(MainWindow parentWindow) {
+		this.parentWindow = parentWindow;
 	}
 	
 	public String getSaveFileName() {
