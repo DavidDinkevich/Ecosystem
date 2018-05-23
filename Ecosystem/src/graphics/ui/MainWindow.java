@@ -45,6 +45,7 @@ public class MainWindow extends JFrame implements WindowListener {
 			this.sim.init();
 		} else {
 			this.sim = sim;
+			sim.setParentWindow(this);
 			sim.setCanvas(canvas);
 		}
 
