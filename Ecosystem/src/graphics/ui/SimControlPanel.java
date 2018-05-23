@@ -78,7 +78,7 @@ public class SimControlPanel extends JPanel implements MouseListener {
 	}
 	
 	private void initPauseButton() {
-		pauseButton = new JToggleButton("Pause");
+		pauseButton = new JToggleButton("Pause", parentWindow.getSimulation().isPaused());
 		pauseButton.setPreferredSize(getButtonSize());
 		add(pauseButton, "wrap " + gapDistance);
 		
