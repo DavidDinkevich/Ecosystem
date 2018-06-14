@@ -13,7 +13,7 @@ import simelements.Simulation;
 
 
 /**
- * Main class/window - contains the main method.
+ * Main window of the program
  * 
  * @author David Dinkevich
  */
